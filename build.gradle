@@ -1,0 +1,35 @@
+plugins {
+    //id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'java'
+}
+
+group 'com.italianDudes'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+dependencies {
+    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'commons-io:commons-io:2.11.0'
+    implementation 'com.italianDudes:gvedk:1.0'
+}
+
+/*
+shadowJar {
+    archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
+}
+*/
+
+task buildExt {
+    //dependsOn shadowJar
+    dependsOn jar
+    group = "Build"
+    description = "Build and assemble the extension"
+}
