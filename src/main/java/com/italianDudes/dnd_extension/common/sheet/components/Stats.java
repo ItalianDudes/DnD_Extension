@@ -9,15 +9,19 @@ public class Stats {
     private int intelligence;
     private int wisdom;
     private int charisma;
+    private ProficiencyBonus proficiencyBonus;
+    private int passiveWisdom;
 
     //Constructors
-    public Stats(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma){
+    public Stats(int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, ProficiencyBonus proficiencyBonus){
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
         this.intelligence = intelligence;
         this.wisdom = wisdom;
         this.charisma = charisma;
+        this.proficiencyBonus = proficiencyBonus;
+        this.passiveWisdom = 10+getDexterityMod();
     }
 
     //Stats Access Methods
@@ -32,6 +36,7 @@ public class Stats {
     }
     public void setDexterity(int dexterity) {
         this.dexterity = dexterity;
+        updatePassiveWisdom();
     }
     public int getConstitution() {
         return constitution;
@@ -56,6 +61,21 @@ public class Stats {
     }
     public void setCharisma(int charisma) {
         this.charisma = charisma;
+    }
+    public ProficiencyBonus getProficiencyBonus(){
+        return proficiencyBonus;
+    }
+    public void setProficiencyBonus(ProficiencyBonus proficiencyBonus){
+        this.proficiencyBonus = proficiencyBonus;
+    }
+    public void setProficiencyBonus(int proficiencyBonus){
+        this.proficiencyBonus.setProficiencyBonus(proficiencyBonus);
+    }
+    public int getPassiveWisdom(){
+        return passiveWisdom;
+    }
+    private void updatePassiveWisdom(){
+        this.passiveWisdom = 10+getDexterityMod();
     }
 
     //Stats Modifier Access Methods
@@ -107,7 +127,8 @@ public class Stats {
                 stats.constitution == this.constitution &&
                 stats.intelligence == this.intelligence &&
                 stats.wisdom == this.wisdom &&
-                stats.charisma == this.charisma;
+                stats.charisma == this.charisma &&
+                stats.proficiencyBonus.equals(this.proficiencyBonus);
     }
     @Override
     public String toString() {
@@ -116,6 +137,8 @@ public class Stats {
                 "Constitution: "+constitution+"\n"+
                 "Intelligence: "+intelligence+"\n"+
                 "Wisdom: "+wisdom+"\n"+
-                "Charisma: "+charisma;
+                "Charisma: "+charisma+"\n"+
+                "Proficiency Bonus: "+proficiencyBonus+"\n"+
+                "Passive Wisdom: "+passiveWisdom;
     }
 }

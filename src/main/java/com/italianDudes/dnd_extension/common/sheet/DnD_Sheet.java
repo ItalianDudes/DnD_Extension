@@ -7,6 +7,7 @@ import com.italianDudes.gvedk.common.*;
 import com.italianDudes.gvedk.common.exceptions.socketIO.OutputStreamWriteException;
 import com.italianDudes.gvedk.common.exceptions.socketIO.SpecializedStreamInstancingException;
 import com.italianDudes.gvedk.common.exceptions.socketIO.ValidatingStreamException;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.NotSerializableException;
@@ -19,7 +20,7 @@ public class DnD_Sheet extends Sheet {
     private final PageThree pageThree;
 
     //Constructors
-    public DnD_Sheet(Credential credential, PageOne pageOne, PageTwo pageTwo, PageThree pageThree){
+    public DnD_Sheet(@NotNull Credential credential, @NotNull PageOne pageOne, @NotNull PageTwo pageTwo, @NotNull PageThree pageThree){
         super(credential);
         this.pageOne = pageOne;
         this.pageTwo = pageTwo;
@@ -50,7 +51,7 @@ public class DnD_Sheet extends Sheet {
         try {
             return (Sheet) Serializer.receiveObject(peer);
         }catch (IOException | ClassNotFoundException e){
-            Logger.log("Error during reading Sheet from "+peer,true);
+            Logger.log(e);
             return null;
         }
     }
@@ -60,7 +61,7 @@ public class DnD_Sheet extends Sheet {
             Serializer.sendObject(peer,this);
         } catch (OutputStreamWriteException | SpecializedStreamInstancingException | ValidatingStreamException |
                  NotSerializableException e) {
-            Logger.log("Error during sending Sheet to "+peer,true);
+            Logger.log(e);
         }
     }
     @Override

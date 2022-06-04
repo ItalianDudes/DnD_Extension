@@ -11,7 +11,7 @@ public class ProficiencyBonus {
     }
 
     //Methods
-    public int getProficiencyBonus() {
+    public int getProficiencyBonusValue() {
         return proficiencyBonus;
     }
     public void setProficiencyBonus(int proficiencyBonus) {

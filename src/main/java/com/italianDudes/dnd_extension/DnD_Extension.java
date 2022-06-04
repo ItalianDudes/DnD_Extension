@@ -1,6 +1,5 @@
 package com.italianDudes.dnd_extension;
 
-import com.italianDudes.dnd_extension.common.sheet.components.Ability;
 import com.italianDudes.dnd_extension.server.Server;
 import com.italianDudes.gvedk.common.State;
 
