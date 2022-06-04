@@ -14,5 +14,6 @@ public class PageOne {
     private OtherCompetencesAndLanguages otherCompetencesAndLanguages;
     private Vitals vitals;
     private AttackAndSpells attackAndSpells;
+    //TODO: Rest of the PageOne
 
 }
