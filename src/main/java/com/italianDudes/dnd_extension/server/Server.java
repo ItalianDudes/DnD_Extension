@@ -11,6 +11,7 @@ public final class Server {
     }
 
     //Methods
+    @SuppressWarnings("UnusedReturnValue")
     public static State runServer(){
         return runServer(null);
     }
