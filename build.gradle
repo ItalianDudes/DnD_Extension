@@ -1,5 +1,4 @@
 plugins {
-    //id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'java'
 }
 
@@ -21,14 +20,7 @@ dependencies {
     implementation 'com.italianDudes:gvedk:1.0'
 }
 
-/*
-shadowJar {
-    archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
-}
-*/
-
 task buildExt {
-    //dependsOn shadowJar
     dependsOn jar
     group = "Build"
     description = "Build and assemble the extension"
