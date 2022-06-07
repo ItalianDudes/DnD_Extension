@@ -1,6 +1,7 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-public class HeaderScheda {
+@SuppressWarnings("unused")
+public class SheetHeader extends SheetComponent{
 
     //Attributes
     private String characterName;
@@ -13,8 +14,8 @@ public class HeaderScheda {
     private int exp;
 
     //Constructors
-    public HeaderScheda(String characterName, String className, int level, String race, String background,
-                        String alignment, String playerName, int exp){
+    public SheetHeader(String characterName, String className, int level, String race, String background,
+                       String alignment, String playerName, int exp){
         this.characterName = characterName;
         this.className = className;
         this.level = level;
@@ -76,16 +77,16 @@ public class HeaderScheda {
     }
     @Override
     public boolean equals(Object obj) {
-        if(!(obj instanceof HeaderScheda))
+        if(!(obj instanceof SheetHeader))
             return false;
-        HeaderScheda headerScheda = (HeaderScheda) obj;
-        return headerScheda.exp==this.exp &&
-                headerScheda.level==this.level &&
-                headerScheda.playerName.equals(this.playerName) &&
-                headerScheda.className.equals(this.className) &&
-                headerScheda.race.equals(this.race) &&
-                headerScheda.alignment.equals(this.alignment) &&
-                headerScheda.background.equals(this.background);
+        SheetHeader sheetHeader = (SheetHeader) obj;
+        return sheetHeader.exp==this.exp &&
+                sheetHeader.level==this.level &&
+                sheetHeader.playerName.equals(this.playerName) &&
+                sheetHeader.className.equals(this.className) &&
+                sheetHeader.race.equals(this.race) &&
+                sheetHeader.alignment.equals(this.alignment) &&
+                sheetHeader.background.equals(this.background);
     }
     @Override
     public String toString() {

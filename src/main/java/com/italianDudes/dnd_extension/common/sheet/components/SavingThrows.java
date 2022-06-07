@@ -4,7 +4,8 @@ import com.italianDudes.dnd_extension.DnD_Extension;
 
 import java.util.Arrays;
 
-public class SavingThrows {
+@SuppressWarnings("unused")
+public class SavingThrows extends SheetComponent {
 
     //Attributes
     private final Stats stats;

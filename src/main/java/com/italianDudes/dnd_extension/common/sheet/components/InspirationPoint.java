@@ -1,6 +1,7 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-public class InspirationPoint {
+@SuppressWarnings("unused")
+public class InspirationPoint extends SheetComponent {
 
     //Attributes
     private int inspirationPoints;

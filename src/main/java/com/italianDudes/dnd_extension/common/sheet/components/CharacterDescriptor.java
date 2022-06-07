@@ -2,7 +2,8 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import java.util.ArrayList;
 
-public class CharacterDescriptor {
+@SuppressWarnings("unused")
+public class CharacterDescriptor extends SheetComponent{
 
     //Attributes
     private final ArrayList<String> personalityAndTraitsList;
@@ -12,19 +13,19 @@ public class CharacterDescriptor {
 
     //Constructors
     public CharacterDescriptor(ArrayList<String> personalityAndTraitsList, ArrayList<String> idealsList, ArrayList<String> bondsList, ArrayList<String> flawsList){
-        if(personalityAndTraitsList == null)
+        if(personalityAndTraitsList==null)
             this.personalityAndTraitsList = new ArrayList<>();
         else
             this.personalityAndTraitsList = personalityAndTraitsList;
-        if(idealsList == null)
+        if(idealsList==null)
             this.idealsList = new ArrayList<>();
         else
             this.idealsList = idealsList;
-        if(bondsList == null)
+        if(bondsList==null)
             this.bondsList = new ArrayList<>();
         else
             this.bondsList = bondsList;
-        if(flawsList == null)
+        if(flawsList==null)
             this.flawsList = new ArrayList<>();
         else
             this.flawsList = flawsList;

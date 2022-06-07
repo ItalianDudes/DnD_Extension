@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 public class PageOne {
 
     //Attributes
-    private final HeaderScheda headerScheda;
+    private final SheetHeader sheetHeader;
     private final Stats stats;
     private final SavingThrows savingThrows;
     private final InspirationPoint inspirationPoint;
@@ -19,11 +19,11 @@ public class PageOne {
     private final FeaturesAndTraits featuresAndTraits;
 
     //Constructors
-    public PageOne(@NotNull HeaderScheda headerScheda,@NotNull Stats stats, SavingThrows savingThrows, InspirationPoint inspirationPoint,
+    public PageOne(@NotNull SheetHeader sheetHeader, @NotNull Stats stats, SavingThrows savingThrows, InspirationPoint inspirationPoint,
                    AbilityTree abilityTree, OtherCompetencesAndLanguages otherCompetencesAndLanguages,
                    @NotNull Vitals vitals, AttackAndSpells attackAndSpells, Equipment equipment, CharacterDescriptor characterDescriptor,
                    FeaturesAndTraits featuresAndTraits){
-        this.headerScheda = headerScheda;
+        this.sheetHeader = sheetHeader;
         this.stats = stats;
         if(savingThrows==null)
             this.savingThrows = new SavingThrows(this.stats);
@@ -59,13 +59,13 @@ public class PageOne {
         else
             this.featuresAndTraits = featuresAndTraits;
     }
-    public PageOne(@NotNull HeaderScheda headerScheda, @NotNull Stats stats, @NotNull Vitals vitals){
-        this(headerScheda,stats,null,null,null,null,vitals,null,null,null,null);
+    public PageOne(@NotNull SheetHeader sheetHeader, @NotNull Stats stats, @NotNull Vitals vitals){
+        this(sheetHeader,stats,null,null,null,null,vitals,null,null,null,null);
     }
 
     //Methods
-    public HeaderScheda getHeaderScheda() {
-        return headerScheda;
+    public SheetHeader getHeaderScheda() {
+        return sheetHeader;
     }
     public Stats getStats() {
         return stats;
@@ -102,7 +102,7 @@ public class PageOne {
         if(!(obj instanceof PageOne))
             return false;
         PageOne pageOne = (PageOne) obj;
-        return pageOne.headerScheda.equals(this.headerScheda) &&
+        return pageOne.sheetHeader.equals(this.sheetHeader) &&
                 pageOne.stats.equals(this.stats) &&
                 pageOne.savingThrows.equals(this.savingThrows) &&
                 pageOne.inspirationPoint.equals(this.inspirationPoint) &&
@@ -116,7 +116,7 @@ public class PageOne {
     }
     @Override
     public String toString() {
-        return "Header Scheda:\n"+headerScheda+"\n"+
+        return "Sheet Header:\n"+ sheetHeader +"\n"+
                 "Stats:\n"+stats+"\n"+
                 "Saving Throws:\n"+savingThrows+"\n"+
                 "Inspiration Points:\n"+inspirationPoint+"\n"+

@@ -5,7 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
-public class AbilityTree {
+@SuppressWarnings("unused")
+public class AbilityTree extends SheetComponent{
 
     //Attributes
     private final Ability[] abilities;

@@ -2,7 +2,8 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import java.util.ArrayList;
 
-public class Equipment {
+@SuppressWarnings("unused")
+public class Equipment extends SheetComponent {
 
     //Attributes
     private final Money money;
@@ -10,12 +11,17 @@ public class Equipment {
 
     //Constructors
     public Equipment(Money money, ArrayList<String> equipmentList){
-        this.money = money;
-        this.equipmentList = equipmentList;
+        if(money==null)
+            this.money = new Money();
+        else
+            this.money = money;
+        if(equipmentList==null)
+            this.equipmentList = new ArrayList<>();
+        else
+            this.equipmentList = equipmentList;
     }
     public Equipment(){
-        this.money = new Money();
-        this.equipmentList = new ArrayList<>();
+        this(null,null);
     }
 
     //Methods

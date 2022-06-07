@@ -1,6 +1,7 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-public class Stats {
+@SuppressWarnings("unused")
+public class Stats extends SheetComponent{
 
     //Attributes
     private int strength;

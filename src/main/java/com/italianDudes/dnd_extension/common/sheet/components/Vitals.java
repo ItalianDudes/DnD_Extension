@@ -1,11 +1,11 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
 import com.italianDudes.dnd_extension.DnD_Extension;
-import com.italianDudes.dnd_extension.common.sheet.DnD_Sheet;
 
 import java.util.Arrays;
 
-public class Vitals {
+@SuppressWarnings("unused")
+public class Vitals extends SheetComponent{
 
     //Attributes
     private int AC;

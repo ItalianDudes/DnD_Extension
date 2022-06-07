@@ -2,7 +2,8 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import java.util.ArrayList;
 
-public class FeaturesAndTraits {
+@SuppressWarnings("unused")
+public class FeaturesAndTraits extends SheetComponent{
 
     //Attributes
     private final ArrayList<String> featuresAndTraitsList;

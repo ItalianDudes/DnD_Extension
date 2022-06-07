@@ -2,7 +2,8 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import java.util.ArrayList;
 
-public class OtherCompetencesAndLanguages {
+@SuppressWarnings("unused")
+public class OtherCompetencesAndLanguages extends SheetComponent{
 
     //Attributes
     private final ArrayList<String> armorsProficiencyList;

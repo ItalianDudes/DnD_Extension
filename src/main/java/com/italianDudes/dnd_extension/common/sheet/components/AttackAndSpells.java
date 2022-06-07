@@ -2,7 +2,8 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import java.util.ArrayList;
 
-public class AttackAndSpells {
+@SuppressWarnings("unused")
+public class AttackAndSpells extends SheetComponent {
 
     //Attributes
     private final ArrayList<AttackModel> attackModels;

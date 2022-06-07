@@ -1,5 +1,6 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+@SuppressWarnings("unused")
 public class AttackModel {
 
     //Attributes

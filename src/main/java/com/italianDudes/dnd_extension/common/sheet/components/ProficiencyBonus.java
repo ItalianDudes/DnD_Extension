@@ -1,6 +1,6 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-public class ProficiencyBonus {
+public class ProficiencyBonus extends SheetComponent{
 
     //Attributes
     private int proficiencyBonus;
