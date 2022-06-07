@@ -1,7 +1,10 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.*;
+import java.util.Scanner;
+
 @SuppressWarnings("unused")
-public class SheetHeader extends SheetComponent{
+public class SheetHeader {
 
     //Attributes
     private String characterName;
@@ -16,14 +19,35 @@ public class SheetHeader extends SheetComponent{
     //Constructors
     public SheetHeader(String characterName, String className, int level, String race, String background,
                        String alignment, String playerName, int exp){
-        this.characterName = characterName;
-        this.className = className;
+        if(characterName==null)
+            this.characterName = "";
+        else
+            this.characterName = characterName;
+        if(className==null)
+            this.className = "";
+        else
+            this.className = className;
         this.level = level;
-        this.race = race;
-        this.background = background;
-        this.alignment = alignment;
-        this.playerName = playerName;
+        if(race==null)
+            this.race = "";
+        else
+            this.race = race;
+        if(background==null)
+            this.background = "";
+        else
+            this.background = background;
+        if(alignment==null)
+            this.alignment = "";
+        else
+            this.alignment = alignment;
+        if(playerName==null)
+            this.playerName = "";
+        else
+            this.playerName = playerName;
         this.exp = exp;
+    }
+    public SheetHeader(){
+        this("","",1,"","","","",0);
     }
 
     //Methods
@@ -74,6 +98,34 @@ public class SheetHeader extends SheetComponent{
     }
     public void setExp(int exp) {
         this.exp = exp;
+    }
+    public static void writeSheetHeader(SheetHeader sheetHeader, File destinationSheetHeaderFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationSheetHeaderFile));
+
+        outFile.write(sheetHeader.characterName+"\n");
+        outFile.write(sheetHeader.className+"\n");
+        outFile.write(sheetHeader.level+"\n");
+        outFile.write(sheetHeader.race+"\n");
+        outFile.write(sheetHeader.background+"\n");
+        outFile.write(sheetHeader.alignment+"\n");
+        outFile.write(sheetHeader.playerName+"\n");
+        outFile.write(sheetHeader.exp);
+
+        outFile.flush();
+        outFile.close();
+
+    }
+    public static SheetHeader readSheetHeader(File sheetHeaderFile) throws FileNotFoundException {
+
+        Scanner inFile = new Scanner(sheetHeaderFile);
+
+        SheetHeader sheetHeader = new SheetHeader(inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()));
+
+        inFile.close();
+
+        return sheetHeader;
+
     }
     @Override
     public boolean equals(Object obj) {

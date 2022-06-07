@@ -1,11 +1,14 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
 import com.italianDudes.dnd_extension.DnD_Extension;
+import com.italianDudes.gvedk.common.Logger;
 
+import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class SavingThrows extends SheetComponent {
+public class SavingThrows {
 
     //Attributes
     private final Stats stats;
@@ -52,6 +55,38 @@ public class SavingThrows extends SheetComponent {
     }
     public int getCharismaSavingThrow(){
         return competenceGrid[DnD_Extension.Defs.CHARISMA_POS]? stats.getCharismaMod()+ stats.getProficiencyBonus().getProficiencyBonusValue(): stats.getCharismaMod();
+    }
+    public static void writeSavingThrows(SavingThrows savingThrows, File destinationSavingThrowsFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationSavingThrowsFile));
+
+        for(int i = 0; i < savingThrows.competenceGrid.length; i++){
+            outFile.write(savingThrows.competenceGrid[i] + "\n");
+        }
+
+        outFile.flush();
+        outFile.close();
+
+    }
+    public static SavingThrows readSavingThrows(Stats stats, File savingThrowsFile){
+
+        Scanner inFile;
+        try{
+            inFile = new Scanner(savingThrowsFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new SavingThrows(stats);
+        }
+
+        boolean[] competenceGrid = new boolean[DnD_Extension.Defs.NUM_STATS];
+
+        for(int i=0;i< DnD_Extension.Defs.NUM_STATS;i++){
+            competenceGrid[i] = Boolean.parseBoolean(inFile.nextLine());
+        }
+
+        inFile.close();
+
+        return new SavingThrows(stats, competenceGrid);
     }
     @Override
     public boolean equals(Object obj) {

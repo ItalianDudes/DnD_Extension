@@ -1,9 +1,13 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class FeaturesAndTraits extends SheetComponent{
+public class FeaturesAndTraits {
 
     //Attributes
     private final ArrayList<String> featuresAndTraitsList;
@@ -34,6 +38,41 @@ public class FeaturesAndTraits extends SheetComponent{
     }
     public int getFeaturesAndTraitsNumber(){
         return featuresAndTraitsList.size();
+    }
+    public static void writeFeaturesAndTraits(FeaturesAndTraits featuresAndTraits, File destinationFeaturesAndTraitsFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationFeaturesAndTraitsFile));
+
+        outFile.write(featuresAndTraits.featuresAndTraitsList.size()+"\n");
+        for(int i=0;i<featuresAndTraits.featuresAndTraitsList.size();i++){
+            outFile.write(featuresAndTraits.featuresAndTraitsList.get(i)+"\n");
+        }
+
+        outFile.close();
+
+    }
+    public static FeaturesAndTraits readFeaturesAndTraits(File featuresAndTraitsFile){
+
+        Scanner inFile;
+        try{
+            inFile = new Scanner(featuresAndTraitsFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new FeaturesAndTraits();
+        }
+
+        ArrayList<String> featuresAndTraits = new ArrayList<>();
+
+        int numFeaturesAndTraits = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numFeaturesAndTraits;i++){
+            featuresAndTraits.add(inFile.nextLine());
+        }
+
+        inFile.close();
+
+        return new FeaturesAndTraits(featuresAndTraits);
+
     }
     @Override
     public boolean equals(Object obj) {

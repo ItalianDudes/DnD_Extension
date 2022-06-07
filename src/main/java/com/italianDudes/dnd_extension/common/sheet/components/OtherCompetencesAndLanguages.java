@@ -1,9 +1,13 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class OtherCompetencesAndLanguages extends SheetComponent{
+public class OtherCompetencesAndLanguages {
 
     //Attributes
     private final ArrayList<String> armorsProficiencyList;
@@ -94,6 +98,77 @@ public class OtherCompetencesAndLanguages extends SheetComponent{
     }
     public int getLanguagesNumber(){
         return languagesProficiencyList.size();
+    }
+    public static void writeOtherCompetencesAndLanguages(OtherCompetencesAndLanguages otherCompetencesAndLanguages, File destinationOtherCompetencesAndLanguagesFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationOtherCompetencesAndLanguagesFile));
+
+        outFile.write(otherCompetencesAndLanguages.armorsProficiencyList.size()+"\n");
+        for(int i=0;i< otherCompetencesAndLanguages.armorsProficiencyList.size();i++){
+            outFile.write(otherCompetencesAndLanguages.armorsProficiencyList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(otherCompetencesAndLanguages.weaponsProficiencyList.size()+"\n");
+        for(int i=0;i< otherCompetencesAndLanguages.weaponsProficiencyList.size();i++){
+            outFile.write(otherCompetencesAndLanguages.weaponsProficiencyList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(otherCompetencesAndLanguages.toolsProficiencyList.size()+"\n");
+        for(int i=0;i< otherCompetencesAndLanguages.toolsProficiencyList.size();i++){
+            outFile.write(otherCompetencesAndLanguages.toolsProficiencyList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(otherCompetencesAndLanguages.languagesProficiencyList.size()+"\n");
+        for(int i=0;i< otherCompetencesAndLanguages.languagesProficiencyList.size();i++){
+            outFile.write(otherCompetencesAndLanguages.languagesProficiencyList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.close();
+
+    }
+    public static OtherCompetencesAndLanguages readOtherCompetencesAndLanguages(File otherCompetencesAndLanguagesFile){
+
+        Scanner inFile;
+        try{
+            inFile = new Scanner(otherCompetencesAndLanguagesFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new OtherCompetencesAndLanguages();
+        }
+
+        ArrayList<String> armorsProficiencyList = new ArrayList<>();
+        ArrayList<String> weaponsProficiencyList = new ArrayList<>();
+        ArrayList<String> toolsProficiencyList = new ArrayList<>();
+        ArrayList<String> languagesProficiencyList = new ArrayList<>();
+
+        int armorsProficiencyNum = Integer.parseInt(inFile.nextLine());
+        for(int i=0;i<armorsProficiencyNum;i++){
+            armorsProficiencyList.add(inFile.nextLine());
+        }
+
+        int weaponsProficiencyNum = Integer.parseInt(inFile.nextLine());
+        for(int i=0;i<weaponsProficiencyNum;i++){
+            weaponsProficiencyList.add(inFile.nextLine());
+        }
+
+        int toolsProficiencyNum = Integer.parseInt(inFile.nextLine());
+        for(int i=0;i<toolsProficiencyNum;i++){
+            toolsProficiencyList.add(inFile.nextLine());
+        }
+
+        int languagesProficiencyNum = Integer.parseInt(inFile.nextLine());
+        for(int i=0;i<languagesProficiencyNum;i++){
+            languagesProficiencyList.add(inFile.nextLine());
+        }
+
+        inFile.close();
+
+        return new OtherCompetencesAndLanguages(armorsProficiencyList,weaponsProficiencyList,toolsProficiencyList,languagesProficiencyList);
+
     }
     @Override
     public boolean equals(Object obj) {

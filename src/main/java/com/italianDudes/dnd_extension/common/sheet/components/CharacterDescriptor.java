@@ -1,9 +1,13 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterDescriptor extends SheetComponent{
+public class CharacterDescriptor {
 
     //Attributes
     private final ArrayList<String> personalityAndTraitsList;
@@ -94,6 +98,86 @@ public class CharacterDescriptor extends SheetComponent{
     }
     public int getFlawsNumber(){
         return flawsList.size();
+    }
+    public static void writeCharacterDescriptor(CharacterDescriptor characterDescriptor, File destinationCharacterDescriptorFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationCharacterDescriptorFile));
+
+        outFile.write(characterDescriptor.personalityAndTraitsList.size()+"\n");
+
+        for(int i=0;i<characterDescriptor.personalityAndTraitsList.size();i++){
+            outFile.write(characterDescriptor.personalityAndTraitsList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(characterDescriptor.idealsList.size()+"\n");
+
+        for(int i=0;i<characterDescriptor.idealsList.size();i++){
+            outFile.write(characterDescriptor.idealsList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(characterDescriptor.bondsList.size()+"\n");
+
+        for(int i=0;i<characterDescriptor.bondsList.size();i++){
+            outFile.write(characterDescriptor.bondsList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.write(characterDescriptor.flawsList.size()+"\n");
+
+        for(int i=0;i<characterDescriptor.flawsList.size();i++){
+            outFile.write(characterDescriptor.flawsList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.close();
+
+    }
+    public static CharacterDescriptor readCharacterDescriptor(File characterDescriptorFile){
+
+        Scanner inFile;
+
+        try{
+            inFile = new Scanner(characterDescriptorFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new CharacterDescriptor();
+        }
+
+        ArrayList<String> personalityAndTraits = new ArrayList<>();
+        ArrayList<String> ideals = new ArrayList<>();
+        ArrayList<String> bonds = new ArrayList<>();
+        ArrayList<String> flaws = new ArrayList<>();
+
+        int numPersonalityAndTraits = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numPersonalityAndTraits;i++){
+            personalityAndTraits.add(inFile.nextLine());
+        }
+
+        int numIdeals = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numIdeals;i++){
+            ideals.add(inFile.nextLine());
+        }
+
+        int numBonds = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numBonds;i++){
+            bonds.add(inFile.nextLine());
+        }
+
+        int numFlaws = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numFlaws;i++){
+            flaws.add(inFile.nextLine());
+        }
+
+        inFile.close();
+
+        return new CharacterDescriptor(personalityAndTraits, ideals, bonds, flaws);
+
     }
     @Override
     public boolean equals(Object obj) {

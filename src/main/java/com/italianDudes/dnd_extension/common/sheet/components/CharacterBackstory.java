@@ -1,11 +1,12 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterBackstory extends SheetComponent{
+public class CharacterBackstory {
 
     //Attributes
     private String backstory;
@@ -17,15 +18,26 @@ public class CharacterBackstory extends SheetComponent{
     public CharacterBackstory(String backstory){
         this.backstory = backstory;
     }
-    public CharacterBackstory(File backstoryFilePointer) throws FileNotFoundException {
-        Scanner inFile = new Scanner(backstoryFilePointer);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        while(inFile.hasNext()){
-            stringBuilder.append(inFile.nextLine()).append("\n");
+    public CharacterBackstory(File backstoryFilePointer) {
+        Scanner inFile = null;
+        boolean fileNotFound = false;
+        try {
+            inFile = new Scanner(backstoryFilePointer);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            this.backstory = "";
+            fileNotFound = true;
         }
-        inFile.close();
-        this.backstory = stringBuilder.toString();
+
+        if(!fileNotFound) {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            while (inFile.hasNext()) {
+                stringBuilder.append(inFile.nextLine()).append("\n");
+            }
+            inFile.close();
+            this.backstory = stringBuilder.toString();
+        }
     }
 
     //Methods
@@ -34,6 +46,33 @@ public class CharacterBackstory extends SheetComponent{
     }
     public void setBackstory(String backstory) {
         this.backstory = backstory;
+    }
+    public static void writeCharacterBackstory(CharacterBackstory characterBackstory, File destinationCharacterBackstoryFile) throws IOException {
+
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(destinationCharacterBackstoryFile));
+
+        bufferedWriter.write(characterBackstory.backstory);
+
+        bufferedWriter.flush();
+        bufferedWriter.close();
+
+    }
+    public static CharacterBackstory readCharacterBackstory(File characterBackstory){
+
+        Scanner inFile;
+        try {
+            inFile = new Scanner(characterBackstory);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new CharacterBackstory();
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(inFile.hasNext()){
+            stringBuilder.append(inFile.nextLine()).append("\n");
+        }
+        inFile.close();
+        return new CharacterBackstory(stringBuilder.toString());
     }
     @Override
     public boolean equals(Object obj) {

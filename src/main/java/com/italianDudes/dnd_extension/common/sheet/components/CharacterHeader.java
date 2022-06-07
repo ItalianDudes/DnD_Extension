@@ -1,15 +1,17 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
 import com.italianDudes.gvedk.common.FormattedImage;
+import com.italianDudes.gvedk.common.ImageHandler;
+import com.italianDudes.gvedk.common.Logger;
 import com.italianDudes.gvedk.common.StringHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterHeader extends SheetComponent{
+public class CharacterHeader {
 
     //Attributes
     private String characterName;
@@ -32,13 +34,34 @@ public class CharacterHeader extends SheetComponent{
         this(characterName, age, height, weight, eyes, hair, skin, new FormattedImage(characterImage, imageExtension));
     }
     public CharacterHeader(String characterName, String age, String height, String weight, String eyes, String hair, String skin, FormattedImage characterImage){
-        this.characterName = characterName;
-        this.age = age;
-        this.height = height;
-        this.weight = weight;
-        this.eyes = eyes;
-        this.hair = hair;
-        this.skin = skin;
+        if(characterName==null)
+            this.characterName = "";
+        else
+            this.characterName = characterName;
+        if(age==null)
+            this.age = "";
+        else
+            this.age = age;
+        if(height==null)
+            this.height = "";
+        else
+            this.height = height;
+        if(weight==null)
+            this.weight = "";
+        else
+            this.weight = weight;
+        if(eyes==null)
+            this.eyes = "";
+        else
+            this.eyes = eyes;
+        if(hair==null)
+            this.hair = "";
+        else
+            this.hair = hair;
+        if(skin==null)
+            this.skin = "";
+        else
+            this.skin = skin;
         this.characterImage = characterImage;
     }
 
@@ -90,6 +113,60 @@ public class CharacterHeader extends SheetComponent{
     }
     public void setCharacterImage(FormattedImage characterImage) {
         this.characterImage = characterImage;
+    }
+    public static void writeCharacterHeader(CharacterHeader characterHeader, File destinationCharacterHeaderFile, File destinationCharacterImageFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationCharacterHeaderFile));
+
+        outFile.write(characterHeader.characterName+"\n");
+        outFile.write(characterHeader.height+"\n");
+        outFile.write(characterHeader.weight+"\n");
+        outFile.write(characterHeader.eyes+"\n");
+        outFile.write(characterHeader.hair+"\n");
+        outFile.write(characterHeader.skin+"\n");
+
+        outFile.flush();
+        outFile.close();
+
+        ImageHandler.writeImage(destinationCharacterImageFile,characterHeader.characterImage.getImage());
+
+    }
+    public static CharacterHeader readCharacterHeader(File characterHeaderFile, File characterImageFile) {
+
+        String characterName = null;
+        String age = null;
+        String height = null;
+        String weight = null;
+        String eyes = null;
+        String hair = null;
+        String skin = null;
+
+        Scanner inFile;
+        try{
+            inFile = new Scanner(characterHeaderFile);
+            characterName = inFile.nextLine();
+            age = inFile.nextLine();
+            height = inFile.nextLine();
+            weight = inFile.nextLine();
+            eyes = inFile.nextLine();
+            hair = inFile.nextLine();
+            skin = inFile.nextLine();
+            inFile.close();
+
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+        }
+
+        FormattedImage characterImage = null;
+
+        try {
+            characterImage = new FormattedImage(ImageIO.read(characterImageFile), StringHandler.getFileExtension(characterImageFile));
+        }catch (IOException e){
+            Logger.log(e);
+        }
+
+        return new CharacterHeader(characterName, age, height, weight, eyes, hair, skin,characterImage);
+
     }
     @Override
     public boolean equals(Object obj) {

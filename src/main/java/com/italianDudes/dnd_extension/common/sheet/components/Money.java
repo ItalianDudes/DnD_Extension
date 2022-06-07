@@ -23,43 +23,34 @@ public class Money {
     }
 
     //Methods
-    public int getCc() {
+    public int getCC() {
         return cc;
     }
-
-    public void setCc(int cc) {
+    public void setCC(int cc) {
         this.cc = cc;
     }
-
-    public int getSc() {
+    public int getSC() {
         return sc;
     }
-
-    public void setSc(int sc) {
+    public void setSC(int sc) {
         this.sc = sc;
     }
-
-    public int getEc() {
+    public int getEC() {
         return ec;
     }
-
-    public void setEc(int ec) {
+    public void setEC(int ec) {
         this.ec = ec;
     }
-
-    public int getGc() {
+    public int getGC() {
         return gc;
     }
-
-    public void setGc(int gc) {
+    public void setGC(int gc) {
         this.gc = gc;
     }
-
-    public int getPc() {
+    public int getPC() {
         return pc;
     }
-
-    public void setPc(int pc) {
+    public void setPC(int pc) {
         this.pc = pc;
     }
     @Override

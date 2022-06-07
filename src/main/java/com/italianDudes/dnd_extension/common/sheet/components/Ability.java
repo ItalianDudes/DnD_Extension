@@ -35,6 +35,19 @@ public class Ability {
     public void setValue(int value) {
         this.value = value;
     }
+    public boolean hasProficiency() {
+        return hasProficiency;
+    }
+    public void setProficiency(boolean hasProficiency) {
+        this.hasProficiency = hasProficiency;
+    }
+    public boolean hasMastery() {
+        return hasMastery;
+    }
+    public void setMastery(boolean hasMastery) {
+        this.hasMastery = hasMastery;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof Ability))

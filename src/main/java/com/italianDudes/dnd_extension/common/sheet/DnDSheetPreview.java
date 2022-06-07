@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class DnDSheetPreview {
 
     //Attributes

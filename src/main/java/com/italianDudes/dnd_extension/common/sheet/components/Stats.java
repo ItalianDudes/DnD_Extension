@@ -1,7 +1,10 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.*;
+import java.util.Scanner;
+
 @SuppressWarnings("unused")
-public class Stats extends SheetComponent{
+public class Stats {
 
     //Attributes
     private int strength;
@@ -117,6 +120,34 @@ public class Stats extends SheetComponent{
             default:
                 throw new RuntimeException("Can't get stats value by position: invalid position");
         }
+    }
+    public static void writeStats(Stats stats, File destinationStatsFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationStatsFile));
+
+        outFile.write(stats.strength+"\n");
+        outFile.write(stats.dexterity+"\n");
+        outFile.write(stats.constitution+"\n");
+        outFile.write(stats.intelligence+"\n");
+        outFile.write(stats.wisdom+"\n");
+        outFile.write(stats.charisma+"\n");
+        outFile.write(stats.proficiencyBonus.getProficiencyBonusValue());
+
+        outFile.flush();
+        outFile.close();
+    }
+    public static Stats readStats(File statsFile) throws FileNotFoundException {
+        Scanner inFile = new Scanner(statsFile);
+
+        Stats stats;
+        try {
+            stats = new Stats(Integer.parseInt(inFile.nextLine()), Integer.parseInt(inFile.nextLine()), Integer.parseInt(inFile.nextLine()), Integer.parseInt(inFile.nextLine()), Integer.parseInt(inFile.nextLine()), Integer.parseInt(inFile.nextLine()), new ProficiencyBonus(Integer.parseInt(inFile.nextLine())));
+        }catch (Exception e){
+            inFile.close();
+            throw e;
+        }
+        inFile.close();
+        return stats;
     }
     @Override
     public boolean equals(Object obj) {

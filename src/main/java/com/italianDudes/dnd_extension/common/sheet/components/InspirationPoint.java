@@ -1,7 +1,12 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
+import java.util.Scanner;
+
 @SuppressWarnings("unused")
-public class InspirationPoint extends SheetComponent {
+public class InspirationPoint {
 
     //Attributes
     private int inspirationPoints;
@@ -39,6 +44,30 @@ public class InspirationPoint extends SheetComponent {
             inspirationPoints-=points;
         else
             inspirationPoints=0;
+    }
+    public static void writeInspirationPoint(InspirationPoint inspirationPoint, File destinationInspirationPointFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationInspirationPointFile));
+
+        outFile.write(inspirationPoint.inspirationPoints);
+
+        outFile.flush();
+        outFile.close();
+
+    }
+    public static InspirationPoint readInspirationPoint(File inspirationPointFile){
+        Scanner inFile;
+        try{
+            inFile = new Scanner(inspirationPointFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new InspirationPoint();
+        }
+
+        InspirationPoint inspirationPoint = new InspirationPoint(Integer.parseInt(inFile.nextLine()));
+
+        inFile.close();
+        return inspirationPoint;
     }
     @Override
     public boolean equals(Object obj) {

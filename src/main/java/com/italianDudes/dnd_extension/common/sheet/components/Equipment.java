@@ -1,9 +1,13 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.Logger;
+
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Equipment extends SheetComponent {
+public class Equipment {
 
     //Attributes
     private final Money money;
@@ -45,6 +49,50 @@ public class Equipment extends SheetComponent {
     }
     public int getEquipmentPiecesNumber(){
         return equipmentList.size();
+    }
+    public static void writeEquipment(Equipment equipment, File destinationEquipmentFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationEquipmentFile));
+
+        outFile.write(equipment.money.getCC()+"\n");
+        outFile.write(equipment.money.getSC()+"\n");
+        outFile.write(equipment.money.getEC()+"\n");
+        outFile.write(equipment.money.getGC()+"\n");
+        outFile.write(equipment.money.getPC()+"\n");
+        outFile.flush();
+
+        outFile.write(equipment.equipmentList.size()+"\n");
+        for(int i=0;i<equipment.equipmentList.size();i++){
+            outFile.write(equipment.equipmentList.get(i)+"\n");
+        }
+        outFile.flush();
+
+        outFile.close();
+
+    }
+    public static Equipment readEquipment(File equipmentFile){
+
+        Scanner inFile;
+        try{
+            inFile = new Scanner(equipmentFile);
+        }catch (FileNotFoundException e){
+            Logger.log(e);
+            return new Equipment();
+        }
+
+        Money money = new Money(Integer.parseInt(inFile.nextLine()),Integer.parseInt(inFile.nextLine()),Integer.parseInt(inFile.nextLine()),Integer.parseInt(inFile.nextLine()),Integer.parseInt(inFile.nextLine()));
+
+        ArrayList<String> eqList = new ArrayList<>();
+
+        int numEquipment = Integer.parseInt(inFile.nextLine());
+
+        for(int i=0;i<numEquipment && inFile.hasNext();i++){
+            eqList.add(inFile.nextLine());
+        }
+
+        inFile.close();
+
+        return new Equipment(money,eqList);
     }
     @Override
     public boolean equals(Object obj) {

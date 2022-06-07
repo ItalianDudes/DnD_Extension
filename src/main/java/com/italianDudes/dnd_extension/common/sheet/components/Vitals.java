@@ -2,10 +2,12 @@ package com.italianDudes.dnd_extension.common.sheet.components;
 
 import com.italianDudes.dnd_extension.DnD_Extension;
 
+import java.io.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Vitals extends SheetComponent{
+public class Vitals {
 
     //Attributes
     private int AC;
@@ -102,6 +104,63 @@ public class Vitals extends SheetComponent{
     }
     public void setFailedTSAgainstDeath(boolean[] failedTSAgainstDeath){
         this.failedTSAgainstDeath = failedTSAgainstDeath;
+    }
+    public static void writeVitals(Vitals vitals, File destinationVitalsFile) throws IOException {
+
+        BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationVitalsFile));
+
+        outFile.write(vitals.AC+"\n");
+        outFile.write(vitals.initiative+"\n");
+        outFile.write(vitals.speed+"\n");
+        outFile.write(vitals.maxHP+"\n");
+        outFile.write(vitals.actualHP+"\n");
+        outFile.write(vitals.tempHP+"\n");
+        outFile.flush();
+        outFile.write(vitals.maxLifeDice.getNumDices()+"\n");
+        outFile.write(vitals.maxLifeDice.getNumFaces()+"\n");
+        outFile.write(vitals.maxLifeDice.getModifier()+"\n");
+        outFile.flush();
+        outFile.write(vitals.actualLifeDice.getNumDices()+"\n");
+        outFile.write(vitals.actualLifeDice.getNumFaces()+"\n");
+        outFile.write(vitals.actualLifeDice.getModifier()+"\n");
+        outFile.flush();
+        for(int i=0;i< vitals.successfulTSAgainstDeath.length;i++){
+            outFile.write(vitals.successfulTSAgainstDeath[i]+"\n");
+        }
+        outFile.flush();
+        for(int i=0;i< vitals.failedTSAgainstDeath.length;i++){
+            outFile.write(vitals.failedTSAgainstDeath[i]+"\n");
+        }
+
+        outFile.flush();
+        outFile.close();
+
+    }
+    public static Vitals readVitals(File vitalsFile) throws FileNotFoundException {
+
+        Scanner inFile = new Scanner(vitalsFile);
+
+        int AC = Integer.parseInt(inFile.nextLine());
+        int initiative = Integer.parseInt(inFile.nextLine());
+        String speed = inFile.nextLine();
+        String maxHP = inFile.nextLine();
+        String actualHP = inFile.nextLine();
+        String tempHP = inFile.nextLine();
+
+        Dice maxLifeDice = new Dice(Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine());
+        Dice actualLifeDice = new Dice(Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine());
+
+        boolean[] successfulTSAgainstDeath = new boolean[DnD_Extension.Defs.NUM_TS_AGAINST_DEATH];
+        boolean[] failedTSAgainstDeath = new boolean[DnD_Extension.Defs.NUM_TS_AGAINST_DEATH];
+
+        for(int i=0;i< DnD_Extension.Defs.NUM_TS_AGAINST_DEATH;i++)
+            successfulTSAgainstDeath[i] = Boolean.parseBoolean(inFile.nextLine());
+        for(int i=0;i< DnD_Extension.Defs.NUM_TS_AGAINST_DEATH;i++)
+            failedTSAgainstDeath[i] = Boolean.parseBoolean(inFile.nextLine());
+
+        inFile.close();
+        return new Vitals(AC,initiative,speed,maxHP,actualHP,tempHP,maxLifeDice,actualLifeDice,successfulTSAgainstDeath,failedTSAgainstDeath);
+
     }
     @Override
     public boolean equals(Object obj) {

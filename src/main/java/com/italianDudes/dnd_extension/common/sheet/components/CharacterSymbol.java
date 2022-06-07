@@ -25,9 +25,16 @@ public class CharacterSymbol {
     public CharacterSymbol(String symbolName, BufferedImage symbolImage, String symbolImageExtension){
         this(symbolName, new FormattedImage(symbolImage, symbolImageExtension));
     }
+    public CharacterSymbol(){
+        this.symbolName = "";
+        this.symbolImage = null;
+    }
     public CharacterSymbol(String symbolName, FormattedImage symbolImage){
         this.symbolImage = symbolImage;
-        this.symbolName = symbolName;
+        if(symbolName==null)
+            this.symbolName = "";
+        else
+            this.symbolName = symbolName;
     }
 
     //Methods

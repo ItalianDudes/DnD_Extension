@@ -3,6 +3,7 @@ package com.italianDudes.dnd_extension.common.sheet.pages;
 import com.italianDudes.dnd_extension.common.sheet.components.*;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("unused")
 public class PageOne {
 
     //Attributes

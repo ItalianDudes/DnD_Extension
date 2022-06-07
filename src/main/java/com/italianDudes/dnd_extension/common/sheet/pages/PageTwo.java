@@ -6,8 +6,6 @@ import com.italianDudes.dnd_extension.common.sheet.components.CharacterHeader;
 import com.italianDudes.dnd_extension.common.sheet.components.Treasure;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-
 @SuppressWarnings("unused")
 public class PageTwo {
 
@@ -20,9 +18,18 @@ public class PageTwo {
     //Constructors
     public PageTwo(@NotNull CharacterHeader characterHeader, AlliesAndOrganization alliesAndOrganizations, CharacterBackstory characterBackstory, Treasure treasure){
         this.characterHeader = characterHeader;
-        this.alliesAndOrganizations = Objects.requireNonNullElseGet(alliesAndOrganizations, AlliesAndOrganization::new);
-        this.characterBackstory = Objects.requireNonNullElseGet(characterBackstory, CharacterBackstory::new);
-        this.treasure = Objects.requireNonNullElseGet(treasure, Treasure::new);
+        if(alliesAndOrganizations==null)
+            this.alliesAndOrganizations = new AlliesAndOrganization();
+        else
+            this.alliesAndOrganizations = alliesAndOrganizations;
+        if(characterBackstory==null)
+            this.characterBackstory = new CharacterBackstory();
+        else
+            this.characterBackstory = characterBackstory;
+        if(treasure==null)
+            this.treasure = new Treasure();
+        else
+            this.treasure = treasure;
     }
     public PageTwo(@NotNull CharacterHeader characterHeader){
         this(characterHeader,null,null,null);
@@ -53,7 +60,6 @@ public class PageTwo {
     public void setTreasure(Treasure treasure) {
         this.treasure = treasure;
     }
-    @SuppressWarnings("PatternVariableCanBeUsed")
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof PageTwo))
