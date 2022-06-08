@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class AttackAndSpells {
+public class AttackAndSpells implements Serializable {
 
     //Attributes
     private final ArrayList<AttackModel> attackModels;

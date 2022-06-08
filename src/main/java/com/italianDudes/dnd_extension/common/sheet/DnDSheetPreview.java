@@ -2,6 +2,7 @@ package com.italianDudes.dnd_extension.common.sheet;
 
 import com.italianDudes.dnd_extension.common.sheet.components.SheetHeader;
 import com.italianDudes.gvedk.common.*;
+import com.italianDudes.gvedk.common.exceptions.socketIO.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -43,33 +44,26 @@ public class DnDSheetPreview {
     public FormattedImage getCharacterImage(){
         return characterImage;
     }
-    public void sendPreview(Peer peer) {
+    public void sendPreview(Peer peer) throws OutputStreamWriteException, SpecializedStreamInstancingException, ValidatingStreamException {
         try {
             Serializer.sendObject(peer, sheetHeader);
         }catch (Exception e){
             Logger.log(e);
         }
-        try {
+        if(characterImage.getImage()!=null){
+            Serializer.sendBoolean(peer,true);
             Serializer.sendImage(peer,characterImage);
-        }catch (Exception e){
-            Logger.log(e);
+        }else{
+            Serializer.sendBoolean(peer,false);
         }
     }
-    public static DnDSheetPreview receivePreview(Peer peer){
+    public static DnDSheetPreview receivePreview(Peer peer) throws SpecializedStreamInstancingException, InputStreamReadException, ValidatingStreamException, CorruptedImageException, ClassNotFoundException {
         SheetHeader sheetHeader;
-        FormattedImage characterImage;
-        try{
+        FormattedImage characterImage = null;
             sheetHeader = (SheetHeader) Serializer.receiveObject(peer);
-        }catch (Exception e) {
-            Logger.log(e);
-            sheetHeader = null;
-        }
-        try{
+        boolean waitForImage = Serializer.receiveBoolean(peer);
+        if(waitForImage)
             characterImage = Serializer.receiveImage(peer);
-        }catch (Exception e) {
-            Logger.log(e);
-            characterImage = null;
-        }
         return new DnDSheetPreview(sheetHeader,characterImage);
     }
     @Override

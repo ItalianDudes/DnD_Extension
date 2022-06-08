@@ -3,8 +3,10 @@ package com.italianDudes.dnd_extension.common.sheet.pages;
 import com.italianDudes.dnd_extension.common.sheet.components.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class PageOne {
+public class PageOne implements Serializable {
 
     //Attributes
     private final SheetHeader sheetHeader;

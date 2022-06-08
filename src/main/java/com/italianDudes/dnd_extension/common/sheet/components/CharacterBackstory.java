@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterBackstory {
+public class CharacterBackstory implements Serializable {
 
     //Attributes
     private String backstory;

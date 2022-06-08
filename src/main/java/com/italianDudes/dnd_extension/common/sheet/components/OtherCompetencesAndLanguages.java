@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class OtherCompetencesAndLanguages {
+public class OtherCompetencesAndLanguages implements Serializable {
 
     //Attributes
     private final ArrayList<String> armorsProficiencyList;

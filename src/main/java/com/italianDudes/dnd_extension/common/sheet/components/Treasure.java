@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Treasure {
+public class Treasure implements Serializable {
 
     //Attributes
     private final ArrayList<String> treasuresList;

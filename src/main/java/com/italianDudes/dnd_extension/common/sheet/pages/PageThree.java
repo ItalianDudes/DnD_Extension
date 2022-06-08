@@ -1,5 +1,7 @@
 package com.italianDudes.dnd_extension.common.sheet.pages;
 
-public class PageThree {
+import java.io.Serializable;
+
+public class PageThree implements Serializable {
     //TODO: PageThree
 }

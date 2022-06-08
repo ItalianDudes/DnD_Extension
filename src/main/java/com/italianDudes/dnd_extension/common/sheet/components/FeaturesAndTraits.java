@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class FeaturesAndTraits {
+public class FeaturesAndTraits implements Serializable {
 
     //Attributes
     private final ArrayList<String> featuresAndTraitsList;

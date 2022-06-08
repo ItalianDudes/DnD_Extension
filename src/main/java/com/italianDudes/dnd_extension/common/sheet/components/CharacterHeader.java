@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterHeader {
+public class CharacterHeader implements Serializable {
 
     //Attributes
     private String characterName;

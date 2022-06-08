@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class CharacterDescriptor {
+public class CharacterDescriptor implements Serializable {
 
     //Attributes
     private final ArrayList<String> personalityAndTraitsList;

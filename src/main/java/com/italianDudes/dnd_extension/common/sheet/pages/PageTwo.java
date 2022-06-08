@@ -6,8 +6,10 @@ import com.italianDudes.dnd_extension.common.sheet.components.CharacterHeader;
 import com.italianDudes.dnd_extension.common.sheet.components.Treasure;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class PageTwo {
+public class PageTwo implements Serializable {
 
     //Attributes
     private CharacterHeader characterHeader;

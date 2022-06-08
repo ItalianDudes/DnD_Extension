@@ -1,6 +1,8 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-public class ProficiencyBonus {
+import java.io.Serializable;
+
+public class ProficiencyBonus implements Serializable {
 
     //Attributes
     private int proficiencyBonus;

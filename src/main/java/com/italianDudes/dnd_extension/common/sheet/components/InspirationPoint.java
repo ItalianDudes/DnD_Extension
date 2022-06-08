@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class InspirationPoint {
+public class InspirationPoint implements Serializable {
 
     //Attributes
     private int inspirationPoints;

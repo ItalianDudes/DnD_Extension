@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class AlliesAndOrganization {
+public class AlliesAndOrganization implements Serializable {
 
     //Attributes
     private final ArrayList<String> allies;

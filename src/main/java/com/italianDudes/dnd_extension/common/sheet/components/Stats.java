@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Stats {
+public class Stats implements Serializable {
 
     //Attributes
     private int strength;

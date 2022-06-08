@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class SavingThrows {
+public class SavingThrows implements Serializable {
 
     //Attributes
     private final Stats stats;

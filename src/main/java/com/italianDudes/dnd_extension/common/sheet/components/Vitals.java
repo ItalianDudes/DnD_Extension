@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Vitals {
+public class Vitals implements Serializable {
 
     //Attributes
     private int AC;
@@ -147,8 +147,8 @@ public class Vitals {
         String actualHP = inFile.nextLine();
         String tempHP = inFile.nextLine();
 
-        Dice maxLifeDice = new Dice(Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine());
-        Dice actualLifeDice = new Dice(Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine());
+        Dice maxLifeDice = new Dice(inFile.nextLine(),Integer.parseInt(inFile.nextLine()),inFile.nextLine());
+        Dice actualLifeDice = new Dice(inFile.nextLine(),Integer.parseInt(inFile.nextLine()),inFile.nextLine());
 
         boolean[] successfulTSAgainstDeath = new boolean[DnD_Extension.Defs.NUM_TS_AGAINST_DEATH];
         boolean[] failedTSAgainstDeath = new boolean[DnD_Extension.Defs.NUM_TS_AGAINST_DEATH];

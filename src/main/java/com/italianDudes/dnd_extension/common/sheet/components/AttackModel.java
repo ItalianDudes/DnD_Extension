@@ -1,7 +1,9 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class AttackModel {
+public class AttackModel implements Serializable {
 
     //Attributes
     private String attackName;

@@ -1,7 +1,9 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class Dice {
+public class Dice implements Serializable {
 
     //Attributes
     private final int numFaces;
@@ -9,12 +11,12 @@ public class Dice {
     private String modifier;
 
     //Constructors
-    public Dice(int numFaces, String numDices){
-        this(numFaces,numDices,"0");
+    public Dice(String numDices, int numFaces){
+        this(numDices,numFaces,"0");
     }
-    public Dice(int numFaces, String numDices, String modifier){
-        this.numFaces = numFaces;
+    public Dice(String numDices, int numFaces, String modifier){
         this.numDices = numDices;
+        this.numFaces = numFaces;
         this.modifier = modifier;
     }
 

@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class SheetHeader {
+public class SheetHeader implements Serializable {
 
     //Attributes
     private String characterName;

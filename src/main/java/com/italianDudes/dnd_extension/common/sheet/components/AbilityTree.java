@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class AbilityTree {
+public class AbilityTree implements Serializable {
 
     //Attributes
     private final Ability[] abilities;

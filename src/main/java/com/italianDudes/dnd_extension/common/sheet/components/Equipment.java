@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class Equipment {
+public class Equipment implements Serializable {
 
     //Attributes
     private final Money money;

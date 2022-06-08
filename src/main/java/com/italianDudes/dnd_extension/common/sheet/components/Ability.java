@@ -1,7 +1,9 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class Ability {
+public class Ability implements Serializable {
 
     //Attributes
     public final Integer abilityPositionConstant;

@@ -7,13 +7,14 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 @SuppressWarnings("unused")
-public class CharacterSymbol {
+public class CharacterSymbol implements Serializable {
 
     //Attributes
     private String symbolName;
-    private FormattedImage symbolImage;
+    private transient FormattedImage symbolImage;
 
     //Constructors
     public CharacterSymbol(String symbolName, String symbolImagePath) throws IOException {
