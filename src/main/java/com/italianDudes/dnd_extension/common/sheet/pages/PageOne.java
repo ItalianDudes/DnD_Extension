@@ -9,17 +9,17 @@ import java.io.Serializable;
 public class PageOne implements Serializable {
 
     //Attributes
-    private final SheetHeader sheetHeader;
-    private final Stats stats;
-    private final SavingThrows savingThrows;
-    private final InspirationPoint inspirationPoint;
-    private final AbilityTree abilityTree;
-    private final OtherCompetencesAndLanguages otherCompetencesAndLanguages;
-    private final Vitals vitals;
-    private final AttackAndSpells attackAndSpells;
-    private final Equipment equipment;
-    private final CharacterDescriptor characterDescriptor;
-    private final FeaturesAndTraits featuresAndTraits;
+    private SheetHeader sheetHeader;
+    private Stats stats;
+    private SavingThrows savingThrows;
+    private InspirationPoint inspirationPoint;
+    private AbilityTree abilityTree;
+    private OtherCompetencesAndLanguages otherCompetencesAndLanguages;
+    private Vitals vitals;
+    private AttackAndSpells attackAndSpells;
+    private Equipment equipment;
+    private CharacterDescriptor characterDescriptor;
+    private FeaturesAndTraits featuresAndTraits;
 
     //Constructors
     public PageOne(@NotNull SheetHeader sheetHeader, @NotNull Stats stats, SavingThrows savingThrows, InspirationPoint inspirationPoint,
@@ -67,38 +67,71 @@ public class PageOne implements Serializable {
     }
 
     //Methods
-    public SheetHeader getHeaderScheda() {
+    public SheetHeader getSheetHeader() {
         return sheetHeader;
+    }
+    public void setSheetHeader(SheetHeader sheetHeader) {
+        this.sheetHeader = sheetHeader;
     }
     public Stats getStats() {
         return stats;
     }
+    public void setStats(Stats stats) {
+        this.stats = stats;
+    }
     public SavingThrows getSavingThrows() {
         return savingThrows;
+    }
+    public void setSavingThrows(SavingThrows savingThrows) {
+        this.savingThrows = savingThrows;
     }
     public InspirationPoint getInspirationPoint() {
         return inspirationPoint;
     }
+    public void setInspirationPoint(InspirationPoint inspirationPoint) {
+        this.inspirationPoint = inspirationPoint;
+    }
     public AbilityTree getAbilityTree() {
         return abilityTree;
+    }
+    public void setAbilityTree(AbilityTree abilityTree) {
+        this.abilityTree = abilityTree;
     }
     public OtherCompetencesAndLanguages getOtherCompetencesAndLanguages() {
         return otherCompetencesAndLanguages;
     }
+    public void setOtherCompetencesAndLanguages(OtherCompetencesAndLanguages otherCompetencesAndLanguages) {
+        this.otherCompetencesAndLanguages = otherCompetencesAndLanguages;
+    }
     public Vitals getVitals() {
         return vitals;
+    }
+    public void setVitals(Vitals vitals) {
+        this.vitals = vitals;
     }
     public AttackAndSpells getAttackAndSpells() {
         return attackAndSpells;
     }
+    public void setAttackAndSpells(AttackAndSpells attackAndSpells) {
+        this.attackAndSpells = attackAndSpells;
+    }
     public Equipment getEquipment() {
         return equipment;
+    }
+    public void setEquipment(Equipment equipment) {
+        this.equipment = equipment;
     }
     public CharacterDescriptor getCharacterDescriptor() {
         return characterDescriptor;
     }
+    public void setCharacterDescriptor(CharacterDescriptor characterDescriptor) {
+        this.characterDescriptor = characterDescriptor;
+    }
     public FeaturesAndTraits getFeaturesAndTraits() {
         return featuresAndTraits;
+    }
+    public void setFeaturesAndTraits(FeaturesAndTraits featuresAndTraits) {
+        this.featuresAndTraits = featuresAndTraits;
     }
     @Override
     public boolean equals(Object obj) {

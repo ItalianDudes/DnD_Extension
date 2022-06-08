@@ -45,7 +45,34 @@ public class DnD_Extension {
             public static final Integer SLEIGHT_OF_HAND_POS = 15;
             public static final Integer STEALTH_POS = 16;
             public static final Integer SURVIVAL_POS = 17;
+
         public static final int NUM_TS_AGAINST_DEATH = 3;
+
+        public static final int NUM_SPELL_REGIONS = 1+9;
+
+        //Directory Sheet Constants
+        public static final String DIRNAME_PAGE_ONE = "page_one/";
+        public static final String DIRNAME_PAGE_TWO = "page_two/";
+        public static final String DIRNAME_PAGE_THREE = "page_three/";
+
+        //Filename Constants
+        public static final String FILENAME_HEADER_SHEET = DIRNAME_PAGE_ONE+"headerSheet.txt";
+        public static final String FILENAME_STATS = DIRNAME_PAGE_ONE+"stats.txt";
+        public static final String FILENAME_ABILITY_TREE = DIRNAME_PAGE_ONE+"abilityTree.txt";
+        public static final String FILENAME_INSPIRATION_POINT = DIRNAME_PAGE_ONE+"inspirationPoint.txt";
+        public static final String FILENAME_SAVING_THROWS = DIRNAME_PAGE_ONE+"savingThrows.txt";
+        public static final String FILENAME_OTHER_PROFICIENCIES_AND_LANGUAGES = DIRNAME_PAGE_ONE+"otherProfsAndLangs.txt";
+        public static final String FILENAME_VITALS = DIRNAME_PAGE_ONE+"vitals.txt";
+        public static final String FILENAME_EQUIPMENT = DIRNAME_PAGE_ONE+"equipment.txt";
+        public static final String FILENAME_CHARACTER_DESCRIPTOR = DIRNAME_PAGE_ONE+"characterDescriptor.txt";
+        public static final String FILENAME_FEATURES_AND_TRAITS = DIRNAME_PAGE_ONE+"featuresAndTraits.txt";
+        public static final String FILENAME_CHARACTER_HEADER = DIRNAME_PAGE_TWO+"characterHeader.txt";
+        public static final String FILENAME_ALLIES_AND_ORGANIZATIONS = DIRNAME_PAGE_TWO+"alliesAndOrganizations.txt";
+        public static final String FILENAME_CHARACTER_BACKSTORY = DIRNAME_PAGE_TWO+"characterBackstory.txt";
+        public static final String FILENAME_TREASURE = DIRNAME_PAGE_TWO+"treasure.txt";
+        public static final String FILENAME_SPELL_HEADER = DIRNAME_PAGE_THREE+"spellHeader.txt";
+        public static final String FILENAME_GENERIC_SPELL_REGION = DIRNAME_PAGE_THREE+"_region.txt"; //Add <integer> before filename for the right region
+
     }
 
 }
