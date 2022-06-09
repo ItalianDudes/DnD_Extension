@@ -6,11 +6,11 @@ import java.io.Serializable;
 public class Ability implements Serializable {
 
     //Attributes
-    public final Integer abilityPositionConstant;
-    public final Integer rootStatPositionConstant;
-    public int value;
-    public boolean hasProficiency;
-    public boolean hasMastery;
+    private final Integer abilityPositionConstant;
+    private final Integer rootStatPositionConstant;
+    private int value;
+    private boolean hasProficiency;
+    private boolean hasMastery;
 
     //Constructors
     public Ability(Integer abilityPositionConstant, Integer rootStatPositionConstant, int value, boolean hasProficiency, boolean hasMastery){

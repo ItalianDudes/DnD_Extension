@@ -1,12 +1,16 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.dnd_extension.DnD_Extension;
+
 import java.io.*;
+import java.util.Random;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
 public class SheetHeader implements Serializable {
 
     //Attributes
+    private String sheetID;
     private String characterName;
     private String className;
     private int level;
@@ -17,8 +21,10 @@ public class SheetHeader implements Serializable {
     private int exp;
 
     //Constructors
-    public SheetHeader(String characterName, String className, int level, String race, String background,
+    public SheetHeader(String sheetID, String characterName, String className, int level, String race, String background,
                        String alignment, String playerName, int exp){
+        if(sheetID==null)
+            this.sheetID = String.valueOf(new Random().nextInt(DnD_Extension.Defs.SHEET_ID_MAX - DnD_Extension.Defs.SHEET_ID_MIN) + DnD_Extension.Defs.SHEET_ID_MIN);
         if(characterName==null)
             this.characterName = "";
         else
@@ -47,10 +53,17 @@ public class SheetHeader implements Serializable {
         this.exp = exp;
     }
     public SheetHeader(){
-        this("","",1,"","","","",0);
+        this(null,"","",1,"","","","",0);
     }
 
     //Methods
+
+    public String getSheetID() {
+        return sheetID;
+    }
+    public void setSheetID(String sheetID) {
+        this.sheetID = sheetID;
+    }
     public String getCharacterName() {
         return characterName;
     }
@@ -103,6 +116,7 @@ public class SheetHeader implements Serializable {
 
         BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationSheetHeaderFile));
 
+        outFile.write(sheetHeader.sheetID+"\n");
         outFile.write(sheetHeader.characterName+"\n");
         outFile.write(sheetHeader.className+"\n");
         outFile.write(sheetHeader.level+"\n");
@@ -110,7 +124,7 @@ public class SheetHeader implements Serializable {
         outFile.write(sheetHeader.background+"\n");
         outFile.write(sheetHeader.alignment+"\n");
         outFile.write(sheetHeader.playerName+"\n");
-        outFile.write(sheetHeader.exp);
+        outFile.write(String.valueOf(sheetHeader.exp));
 
         outFile.flush();
         outFile.close();
@@ -120,7 +134,7 @@ public class SheetHeader implements Serializable {
 
         Scanner inFile = new Scanner(sheetHeaderFile);
 
-        SheetHeader sheetHeader = new SheetHeader(inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()));
+        SheetHeader sheetHeader = new SheetHeader(inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),inFile.nextLine(),Integer.parseInt(inFile.nextLine()));
 
         inFile.close();
 
@@ -138,11 +152,13 @@ public class SheetHeader implements Serializable {
                 sheetHeader.className.equals(this.className) &&
                 sheetHeader.race.equals(this.race) &&
                 sheetHeader.alignment.equals(this.alignment) &&
-                sheetHeader.background.equals(this.background);
+                sheetHeader.background.equals(this.background) &&
+                sheetHeader.sheetID.equals(this.sheetID);
     }
     @Override
     public String toString() {
-        return "Character Name: "+characterName+"\n"+
+        return "Sheet ID: "+sheetID+"\n"+
+                "Character Name: "+characterName+"\n"+
                 "Class&Level: "+className+"-"+level+"\n"+
                 "Race: "+race+"\n"+
                 "Background: "+background+"\n"+

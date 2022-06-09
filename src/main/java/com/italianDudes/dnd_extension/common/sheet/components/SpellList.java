@@ -1,10 +1,11 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 @SuppressWarnings("unused")
-public class SpellList {
+public class SpellList implements Serializable {
 
     //Attributes
     private final int spellRegionID;

@@ -1,7 +1,9 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import java.io.Serializable;
+
 @SuppressWarnings("unused")
-public class SpellComponent {
+public class SpellComponent implements Serializable {
 
     //Attributes
     private String componentName;

@@ -4,14 +4,13 @@ import com.italianDudes.dnd_extension.common.sheet.pages.PageOne;
 import com.italianDudes.dnd_extension.common.sheet.pages.PageThree;
 import com.italianDudes.dnd_extension.common.sheet.pages.PageTwo;
 import com.italianDudes.gvedk.common.*;
-import com.italianDudes.gvedk.common.exceptions.socketIO.OutputStreamWriteException;
-import com.italianDudes.gvedk.common.exceptions.socketIO.SpecializedStreamInstancingException;
-import com.italianDudes.gvedk.common.exceptions.socketIO.ValidatingStreamException;
+import com.italianDudes.gvedk.common.exceptions.IO.directory.DirectoryNotFoundException;
+import com.italianDudes.gvedk.common.exceptions.IO.socket.OutputStreamWriteException;
+import com.italianDudes.gvedk.common.exceptions.IO.socket.SpecializedStreamInstancingException;
+import com.italianDudes.gvedk.common.exceptions.IO.socket.ValidatingStreamException;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.Serializable;
+import java.io.*;
 
 @SuppressWarnings("unused")
 public class DnD_Sheet extends Sheet implements Serializable {
@@ -39,52 +38,75 @@ public class DnD_Sheet extends Sheet implements Serializable {
     public PageThree getPageThree(){
         return pageThree;
     }
-    @Override
-    public Sheet readSheet(String s) {
-        //TODO: readSheet()
-        return null;
+    public static DnD_Sheet readSheet(Credential credential, String sheetDirectory) throws DirectoryNotFoundException, FileNotFoundException {
+        return new DnD_Sheet(
+                credential,
+                PageOne.readPageOne(sheetDirectory),
+                PageTwo.readPageTwo(sheetDirectory),
+                PageThree.readPageThree(sheetDirectory)
+        );
     }
-    @Override
-    public void writeSheet(String s) {
-        //TODO: writeSheet()
+    public static void writeSheet(DnD_Sheet sheet, String sheetDirectoryPath) throws IOException {
+        writeSheet(sheet, new File(sheetDirectoryPath));
+    }
+    public static void writeSheet(DnD_Sheet sheet, File sheetDirectory) throws IOException {
+
+        if(!DirectoryHandler.directoryExist(sheetDirectory))
+            throw new DirectoryNotFoundException("directory "+sheetDirectory.getAbsolutePath()+" not found");
+
+        PageOne.writePageOne(sheet.pageOne, sheetDirectory);
+        PageTwo.writePageTwo(sheet.pageTwo, sheetDirectory);
+        PageThree.writePageThree(sheet.pageThree, sheetDirectory);
+
     }
     public static DnD_Sheet receiveSheet(Peer peer) {
         try {
             DnD_Sheet sheet = (DnD_Sheet) Serializer.receiveObject(peer);
-            FormattedImage characterImage = null;
-            FormattedImage symbolImage = null;
             boolean waitForCharacterImage = Serializer.receiveBoolean(peer);
             if(waitForCharacterImage) {
-                characterImage = Serializer.receiveImage(peer);
+                sheet.pageTwo.getCharacterHeader().setCharacterImage(Serializer.receiveImage(peer));
             }
             boolean waitForSymbolImage = Serializer.receiveBoolean(peer);
             if(waitForSymbolImage) {
-                symbolImage = Serializer.receiveImage(peer);
+                sheet.pageTwo.getAlliesAndOrganizations().getCharacterSymbol().setSymbolImage(Serializer.receiveImage(peer));
             }
-            sheet.pageTwo.getCharacterHeader().setCharacterImage(characterImage);
-            sheet.pageTwo.getAlliesAndOrganizations().getCharacterSymbol().setSymbolImage(symbolImage);
             return sheet;
         }catch (IOException | ClassNotFoundException e){
             Logger.log(e);
             return null;
         }
     }
-    @Override
-    public void sendSheet(Peer peer) {
+    public static void sendSheet(Peer peer, DnD_Sheet sheet) {
         try {
-            Serializer.sendObject(peer,this);
-            if(pageTwo.getCharacterHeader().getCharacterImage().getImage()!=null) {
-                Serializer.sendBoolean(peer,true);
-                Serializer.sendImage(peer, pageTwo.getCharacterHeader().getCharacterImage());
-            }else{
+            Serializer.sendObject(peer,sheet);
+            try {
+                if (sheet.pageTwo.getCharacterHeader().getCharacterImage().getImage() != null) {
+                    Serializer.sendBoolean(peer, true);
+                    Serializer.sendImage(peer, sheet.pageTwo.getCharacterHeader().getCharacterImage());
+                } else {
+                    System.out.println(false);
+                    Serializer.sendBoolean(peer, false);
+                }
+            }catch (NullPointerException nullPointerException){
+                Logger.log(nullPointerException);
+                System.out.println(false);
                 Serializer.sendBoolean(peer,false);
             }
-            if(pageTwo.getAlliesAndOrganizations().getCharacterSymbol().getSymbolImage().getImage()!=null) {
-                Serializer.sendBoolean(peer,true);
-                Serializer.sendImage(peer, pageTwo.getAlliesAndOrganizations().getCharacterSymbol().getSymbolImage());
-            }else{
+
+            try {
+                if (sheet.pageTwo.getAlliesAndOrganizations().getCharacterSymbol().getSymbolImage().getImage() != null) {
+                    Serializer.sendBoolean(peer, true);
+                    Serializer.sendImage(peer, sheet.pageTwo.getCharacterHeader().getCharacterImage());
+                } else {
+                    System.out.println(false);
+                    Serializer.sendBoolean(peer, false);
+                }
+            }catch (NullPointerException nullPointerException){
+                Logger.log(nullPointerException);
+                System.out.println(false);
                 Serializer.sendBoolean(peer,false);
             }
+
         } catch (OutputStreamWriteException | SpecializedStreamInstancingException | ValidatingStreamException |
                  NotSerializableException e) {
             Logger.log(e);

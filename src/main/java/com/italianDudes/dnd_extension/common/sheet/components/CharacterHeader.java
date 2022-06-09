@@ -1,9 +1,6 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-import com.italianDudes.gvedk.common.FormattedImage;
-import com.italianDudes.gvedk.common.ImageHandler;
-import com.italianDudes.gvedk.common.Logger;
-import com.italianDudes.gvedk.common.StringHandler;
+import com.italianDudes.gvedk.common.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -28,7 +25,7 @@ public class CharacterHeader implements Serializable {
         this(characterName, age, height, weight, eyes, hair, skin, new File(characterImagePath));
     }
     public CharacterHeader(String characterName, String age, String height, String weight, String eyes, String hair, String skin, File characterImagePointer) throws IOException {
-        this(characterName, age, height, weight, eyes, hair, skin, new FormattedImage(ImageIO.read(characterImagePointer), StringHandler.getFileExtension(characterImagePointer)));
+        this(characterName, age, height, weight, eyes, hair, skin, new FormattedImage(ImageIO.read(characterImagePointer), FileHandler.getFileExtension(characterImagePointer)));
     }
     public CharacterHeader(String characterName, String age, String height, String weight, String eyes, String hair, String skin, BufferedImage characterImage, String imageExtension){
         this(characterName, age, height, weight, eyes, hair, skin, new FormattedImage(characterImage, imageExtension));
@@ -119,6 +116,7 @@ public class CharacterHeader implements Serializable {
         BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationCharacterHeaderFile));
 
         outFile.write(characterHeader.characterName+"\n");
+        outFile.write(characterHeader.age+"\n");
         outFile.write(characterHeader.height+"\n");
         outFile.write(characterHeader.weight+"\n");
         outFile.write(characterHeader.eyes+"\n");
@@ -160,7 +158,7 @@ public class CharacterHeader implements Serializable {
         FormattedImage characterImage = null;
 
         try {
-            characterImage = new FormattedImage(ImageIO.read(characterImageFile), StringHandler.getFileExtension(characterImageFile));
+            characterImage = new FormattedImage(ImageIO.read(characterImageFile), FileHandler.getFileExtension(characterImageFile));
         }catch (IOException e){
             Logger.log(e);
         }

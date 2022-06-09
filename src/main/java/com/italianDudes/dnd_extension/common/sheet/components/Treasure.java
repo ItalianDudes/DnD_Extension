@@ -51,6 +51,9 @@ public class Treasure implements Serializable {
         outFile.close();
 
     }
+    public static Treasure readTreasure(String treasurePath) {
+        return readTreasure(new File(treasurePath));
+    }
     public static Treasure readTreasure(File treasureFile){
 
         Scanner inFile;

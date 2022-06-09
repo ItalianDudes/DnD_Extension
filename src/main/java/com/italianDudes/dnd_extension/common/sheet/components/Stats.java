@@ -131,7 +131,7 @@ public class Stats implements Serializable {
         outFile.write(stats.intelligence+"\n");
         outFile.write(stats.wisdom+"\n");
         outFile.write(stats.charisma+"\n");
-        outFile.write(stats.proficiencyBonus.getProficiencyBonusValue());
+        outFile.write(String.valueOf(stats.proficiencyBonus.getProficiencyBonusValue()));
 
         outFile.flush();
         outFile.close();

@@ -56,27 +56,43 @@ public class PageThree implements Serializable {
     public void setSpellRegions(SpellRegion[] spellRegions) {
         this.spellRegions = spellRegions;
     }
-    public static void writePageThree(PageThree pageThree, File pageThreeDirectory) throws IOException {
+    public static void writePageThree(PageThree pageThree, String sheetDirectoryPath) throws IOException {
+        writePageThree(pageThree, new File(sheetDirectoryPath));
+    }
+    public static void writePageThree(PageThree pageThree, File sheetDirectory) throws IOException {
+
+        if(!DirectoryHandler.directoryExist(sheetDirectory)){
+            throw new DirectoryNotFoundException("directory "+sheetDirectory.getAbsolutePath()+" not found");
+        }
+
+        File pageThreeDirectory = new File(sheetDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.DIRNAME_PAGE_THREE);
+
+        if(!DirectoryHandler.directoryExist(pageThreeDirectory)){
+            if(!pageThreeDirectory.mkdir())
+                throw new IOException("Can't create "+pageThreeDirectory.getAbsolutePath()+" directory");
+        }
+
+        SpellHeader.writeSpellHeader(pageThree.spellHeader, pageThreeDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_SPELL_HEADER);
+
+        for(int i=0;i< DnD_Extension.Defs.NUM_SPELL_REGIONS;i++){
+            SpellRegion.writeSpellRegion(pageThree.spellRegions[i], pageThreeDirectory.getAbsolutePath()+"/"+i+DnD_Extension.Defs.FILENAME_GENERIC_SPELL_REGION);
+        }
+    }
+    public static PageThree readPageThree(String sheetDirectoryPath) throws DirectoryNotFoundException {
+        return readPageThree(new File(sheetDirectoryPath));
+    }
+    public static PageThree readPageThree(File sheetDirectory) throws DirectoryNotFoundException {
+
+        File pageThreeDirectory = new File(sheetDirectory+"/"+ DnD_Extension.Defs.DIRNAME_PAGE_THREE);
 
         if(!DirectoryHandler.directoryExist(pageThreeDirectory))
             throw new DirectoryNotFoundException("directory "+pageThreeDirectory.getAbsolutePath()+" not found");
 
-        SpellHeader.writeSpellHeader(pageThree.spellHeader, DnD_Extension.Defs.FILENAME_SPELL_HEADER);
-
-        for(int i=0;i< DnD_Extension.Defs.NUM_SPELL_REGIONS;i++){
-            SpellRegion.writeSpellRegion(pageThree.spellRegions[i], i+DnD_Extension.Defs.FILENAME_GENERIC_SPELL_REGION);
-        }
-    }
-    public static PageThree readPageThree(File pageThreeDirectory){
-
-        if(!DirectoryHandler.directoryExist(pageThreeDirectory))
-            return new PageThree();
-
-        SpellHeader spellHeader = SpellHeader.readSpellHeader(DnD_Extension.Defs.FILENAME_SPELL_HEADER);
+        SpellHeader spellHeader = SpellHeader.readSpellHeader(pageThreeDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_SPELL_HEADER);
         SpellRegion[] spellRegions = new SpellRegion[DnD_Extension.Defs.NUM_SPELL_REGIONS];
 
         for(int i=0;i< DnD_Extension.Defs.NUM_SPELL_REGIONS;i++){
-            spellRegions[i] = SpellRegion.readSpellRegion(i, i+DnD_Extension.Defs.FILENAME_GENERIC_SPELL_REGION);
+            spellRegions[i] = SpellRegion.readSpellRegion(i,pageThreeDirectory.getAbsolutePath()+"/"+i+DnD_Extension.Defs.FILENAME_GENERIC_SPELL_REGION);
         }
 
         return new PageThree(spellHeader,spellRegions);

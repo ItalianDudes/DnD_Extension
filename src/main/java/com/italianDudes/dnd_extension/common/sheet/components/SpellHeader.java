@@ -80,7 +80,7 @@ public class SpellHeader implements Serializable {
         outFile.write(spellHeader.spellCastingClass+"\n");
         outFile.write(spellHeader.spellCastingAbility+"\n");
         outFile.write(spellHeader.spellSaveDC+"\n");
-        outFile.write(spellHeader.spellAttackBonus);
+        outFile.write(spellHeader.spellAttackBonus+"\n");
 
         outFile.flush();
         outFile.close();

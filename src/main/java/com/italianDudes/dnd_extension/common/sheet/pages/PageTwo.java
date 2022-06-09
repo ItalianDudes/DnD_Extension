@@ -1,11 +1,17 @@
 package com.italianDudes.dnd_extension.common.sheet.pages;
 
+import com.italianDudes.dnd_extension.DnD_Extension;
 import com.italianDudes.dnd_extension.common.sheet.components.AlliesAndOrganization;
 import com.italianDudes.dnd_extension.common.sheet.components.CharacterBackstory;
 import com.italianDudes.dnd_extension.common.sheet.components.CharacterHeader;
 import com.italianDudes.dnd_extension.common.sheet.components.Treasure;
+import com.italianDudes.gvedk.common.DirectoryHandler;
+import com.italianDudes.gvedk.common.FileHandler;
+import com.italianDudes.gvedk.common.exceptions.IO.directory.DirectoryNotFoundException;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 
 @SuppressWarnings("unused")
@@ -61,6 +67,67 @@ public class PageTwo implements Serializable {
     }
     public void setTreasure(Treasure treasure) {
         this.treasure = treasure;
+    }
+    public static void writePageTwo(PageTwo pageTwo, String sheetDirectoryPath) throws IOException {
+        writePageTwo(pageTwo, new File(sheetDirectoryPath));
+    }
+    public static void writePageTwo(PageTwo pageTwo, File sheetDirectory) throws IOException {
+
+        if(!DirectoryHandler.directoryExist(sheetDirectory)){
+            throw new DirectoryNotFoundException("directory "+sheetDirectory.getAbsolutePath()+" not found");
+        }
+
+        File pageTwoDirectory = new File(sheetDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.DIRNAME_PAGE_TWO);
+
+        if(!DirectoryHandler.directoryExist(pageTwoDirectory)){
+            if(!pageTwoDirectory.mkdir())
+                throw new IOException("Can't create "+pageTwoDirectory.getAbsolutePath()+" directory");
+        }
+
+        CharacterHeader.writeCharacterHeader(
+                pageTwo.characterHeader,
+                new File(pageTwoDirectory.getAbsoluteFile()+"/"+ DnD_Extension.Defs.FILENAME_CHARACTER_HEADER),
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.FILENAME_CHARACTER_IMAGE_NO_EXT+"."+pageTwo.characterHeader.getCharacterImage().getFormatName())
+        );
+
+        AlliesAndOrganization.writeAlliesAndOrganizations(
+                pageTwo.alliesAndOrganizations,new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_ALLIES_AND_ORGANIZATIONS),
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_SYMBOL_NAME),
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_SYMBOL_IMAGE_NO_EXT+"."+pageTwo.alliesAndOrganizations.getCharacterSymbol().getSymbolImage().getFormatName())
+        );
+
+        CharacterBackstory.writeCharacterBackstory(pageTwo.characterBackstory,new File(pageTwoDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.FILENAME_CHARACTER_BACKSTORY));
+
+        Treasure.writeTreasure(pageTwo.treasure, new File(pageTwoDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.FILENAME_TREASURE));
+
+    }
+    public static PageTwo readPageTwo(String sheetDirectoryPath) throws DirectoryNotFoundException {
+        return readPageTwo(new File(sheetDirectoryPath));
+    }
+    public static PageTwo readPageTwo(File sheetDirectory) throws DirectoryNotFoundException {
+
+        File pageTwoDirectory = new File(sheetDirectory.getAbsolutePath()+"/"+ DnD_Extension.Defs.DIRNAME_PAGE_TWO);
+
+        if(!DirectoryHandler.directoryExist(pageTwoDirectory))
+            throw new DirectoryNotFoundException("directory "+pageTwoDirectory.getAbsolutePath()+" not found");
+
+        File characterImageFile = FileHandler.findFilesWithName(pageTwoDirectory, DnD_Extension.Defs.FILENAME_CHARACTER_IMAGE_NO_EXT)[0];
+        CharacterHeader characterHeader = CharacterHeader.readCharacterHeader(
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_CHARACTER_HEADER),
+                characterImageFile);
+
+        File symbolImageFile = FileHandler.findFilesWithName(pageTwoDirectory, DnD_Extension.Defs.FILENAME_SYMBOL_IMAGE_NO_EXT)[0];
+        AlliesAndOrganization alliesAndOrganizations = AlliesAndOrganization.readAlliesAndOrganizations(
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_ALLIES_AND_ORGANIZATIONS),
+                new File(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_SYMBOL_NAME),
+                symbolImageFile
+        );
+
+        CharacterBackstory characterBackstory = CharacterBackstory.readCharacterBackstory(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_CHARACTER_BACKSTORY);
+        Treasure treasure = Treasure.readTreasure(pageTwoDirectory.getAbsolutePath()+"/"+DnD_Extension.Defs.FILENAME_TREASURE);
+
+        return new PageTwo(characterHeader,alliesAndOrganizations,characterBackstory,treasure);
+
     }
     @Override
     public boolean equals(Object obj) {

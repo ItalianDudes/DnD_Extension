@@ -1,13 +1,12 @@
 package com.italianDudes.dnd_extension;
 
-import com.italianDudes.dnd_extension.server.Server;
 import com.italianDudes.gvedk.common.State;
+
+import java.io.File;
 
 public class DnD_Extension {
 
-    public static State launch(String[] args){
-
-        Server.runServer();
+    public static State launch(File operativeDir){
 
         System.out.println("Hello World!");
         return new State(0);
@@ -15,7 +14,13 @@ public class DnD_Extension {
     }
 
     //Constants Class
+    @SuppressWarnings("unused")
     public static final class Defs {
+
+        //Directories
+        public static final String USERS_DIR = "users/";
+
+        //Stats
         public static final int NUM_STATS = 6;
             public static final Integer STRENGTH_POS = 0;
             public static final Integer DEXTERITY_POS = 1;
@@ -55,23 +60,32 @@ public class DnD_Extension {
         public static final String DIRNAME_PAGE_TWO = "page_two/";
         public static final String DIRNAME_PAGE_THREE = "page_three/";
 
+        //ID Bounds
+        public static final int SHEET_ID_MIN = 100000000; //Inclusive
+        public static final int SHEET_ID_MAX = 1000000000; //Exclusive
+
         //Filename Constants
-        public static final String FILENAME_HEADER_SHEET = DIRNAME_PAGE_ONE+"headerSheet.txt";
-        public static final String FILENAME_STATS = DIRNAME_PAGE_ONE+"stats.txt";
-        public static final String FILENAME_ABILITY_TREE = DIRNAME_PAGE_ONE+"abilityTree.txt";
-        public static final String FILENAME_INSPIRATION_POINT = DIRNAME_PAGE_ONE+"inspirationPoint.txt";
-        public static final String FILENAME_SAVING_THROWS = DIRNAME_PAGE_ONE+"savingThrows.txt";
-        public static final String FILENAME_OTHER_PROFICIENCIES_AND_LANGUAGES = DIRNAME_PAGE_ONE+"otherProfsAndLangs.txt";
-        public static final String FILENAME_VITALS = DIRNAME_PAGE_ONE+"vitals.txt";
-        public static final String FILENAME_EQUIPMENT = DIRNAME_PAGE_ONE+"equipment.txt";
-        public static final String FILENAME_CHARACTER_DESCRIPTOR = DIRNAME_PAGE_ONE+"characterDescriptor.txt";
-        public static final String FILENAME_FEATURES_AND_TRAITS = DIRNAME_PAGE_ONE+"featuresAndTraits.txt";
-        public static final String FILENAME_CHARACTER_HEADER = DIRNAME_PAGE_TWO+"characterHeader.txt";
-        public static final String FILENAME_ALLIES_AND_ORGANIZATIONS = DIRNAME_PAGE_TWO+"alliesAndOrganizations.txt";
-        public static final String FILENAME_CHARACTER_BACKSTORY = DIRNAME_PAGE_TWO+"characterBackstory.txt";
-        public static final String FILENAME_TREASURE = DIRNAME_PAGE_TWO+"treasure.txt";
-        public static final String FILENAME_SPELL_HEADER = DIRNAME_PAGE_THREE+"spellHeader.txt";
-        public static final String FILENAME_GENERIC_SPELL_REGION = DIRNAME_PAGE_THREE+"_region.txt"; //Add <integer> before filename for the right region
+        public static final String FILENAME_SHEET_ID = "sheetID.txt";
+        public static final String FILENAME_HEADER_SHEET = "headerSheet.txt";
+        public static final String FILENAME_STATS = "stats.txt";
+        public static final String FILENAME_ABILITY_TREE = "abilityTree.txt";
+        public static final String FILENAME_INSPIRATION_POINT = "inspirationPoint.txt";
+        public static final String FILENAME_SAVING_THROWS = "savingThrows.txt";
+        public static final String FILENAME_OTHER_PROFICIENCIES_AND_LANGUAGES = "otherProfsAndLangs.txt";
+        public static final String FILENAME_VITALS = "vitals.txt";
+        public static final String FILENAME_ATTACK_AND_SPELLS = "attackAndSpells.txt";
+        public static final String FILENAME_EQUIPMENT = "equipment.txt";
+        public static final String FILENAME_CHARACTER_DESCRIPTOR = "characterDescriptor.txt";
+        public static final String FILENAME_FEATURES_AND_TRAITS = "featuresAndTraits.txt";
+        public static final String FILENAME_CHARACTER_HEADER = "characterHeader.txt";
+        public static final String FILENAME_CHARACTER_IMAGE_NO_EXT = "characterImage"; //No Extension
+        public static final String FILENAME_ALLIES_AND_ORGANIZATIONS = "alliesAndOrganizations.txt";
+        public static final String FILENAME_SYMBOL_NAME = "symbolName.txt";
+        public static final String FILENAME_SYMBOL_IMAGE_NO_EXT = "symbolImage"; //No Extension
+        public static final String FILENAME_CHARACTER_BACKSTORY = "characterBackstory.txt";
+        public static final String FILENAME_TREASURE = "treasure.txt";
+        public static final String FILENAME_SPELL_HEADER = "spellHeader.txt";
+        public static final String FILENAME_GENERIC_SPELL_REGION = "_region.txt"; //Add <integer> before filename for the right region
 
     }
 

@@ -49,7 +49,7 @@ public class InspirationPoint implements Serializable {
 
         BufferedWriter outFile = new BufferedWriter(new FileWriter(destinationInspirationPointFile));
 
-        outFile.write(inspirationPoint.inspirationPoints);
+        outFile.write(String.valueOf(inspirationPoint.inspirationPoints));
 
         outFile.flush();
         outFile.close();

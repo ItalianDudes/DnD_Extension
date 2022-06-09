@@ -16,37 +16,31 @@ public class AbilityTree implements Serializable {
 
     //Constructors
     public AbilityTree(@NotNull Stats stats){
-        this(stats, null);
-    }
-    public AbilityTree(@NotNull Stats stats, Ability[] abilities){
-        if(abilities!=null){
-            this.abilities = new Ability[DnD_Extension.Defs.NUM_ABILITIES];
-            for(int i=0; i< DnD_Extension.Defs.NUM_ABILITIES;i++){
-                try {
-                    this.abilities[i] = abilities[i];
-                }catch (Exception e){
-                    this.abilities[i] = new Ability(i, DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i],stats.getValueByPosition(DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i]));
-                }
-            }
-        }else {
-            this.abilities = new Ability[DnD_Extension.Defs.NUM_ABILITIES];
-            for(int i=0;i< DnD_Extension.Defs.NUM_ABILITIES;i++){
-                this.abilities[i] = new Ability(i, DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i],stats.getValueByPosition(DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i]));
-            }
+        this.abilities = new Ability[DnD_Extension.Defs.NUM_ABILITIES];
+        for(int i=0;i< DnD_Extension.Defs.NUM_ABILITIES;i++){
+            this.abilities[i] = new Ability(i, DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i],stats.getValueByPosition(DnD_Extension.Defs.ABILITIES_ROOT_BY_POS[i]));
         }
+    }
+    private AbilityTree(Ability[] abilities){
+        this.abilities = abilities;
     }
 
     //Methods
-    public Ability[] getAbilityTree() {
-        return abilities;
+    public Ability getAbilityByPosition(int posConstant){
+        return abilities[posConstant];
     }
-    public Ability getAbilityByPosition(int pos){
-        return abilities[pos];
+    public void setAbilityToPosition(int posConstant, @NotNull Ability ability){
+        abilities[posConstant] = ability;
     }
-    public void setAbilityToPosition(int pos, @NotNull Ability ability){
-        abilities[pos] = ability;
+    public void setProficiencyToAbilityToPosition(int posConstant, boolean hasProficiency){
+        abilities[posConstant].setProficiency(hasProficiency);
     }
-    public static Ability[] readAbilityTree(File sourceFile){
+    public void setMasteryToAbilityToPosition(int posConstant, boolean hasMastery){
+        if(hasMastery)
+            abilities[posConstant].setProficiency(true);
+        abilities[posConstant].setProficiency(hasMastery);
+    }
+    public static AbilityTree readAbilityTree(File sourceFile){
         Scanner inFile;
         try {
             inFile = new Scanner(sourceFile);
@@ -85,19 +79,19 @@ public class AbilityTree implements Serializable {
             return null;
         }
 
-        return abilities;
+        return new AbilityTree(abilities);
     }
-    public static void writeAbilityTree(File destination, AbilityTree abilityTree) throws IOException {
+    public static void writeAbilityTree(AbilityTree abilityTree, File destination) throws IOException {
 
         BufferedWriter outFile = new BufferedWriter(new FileWriter(destination));
 
         Ability[] abilities = abilityTree.abilities;
 
         for (Ability ability : abilities) {
-            outFile.write(ability.value+"\n");
-            if (ability.hasProficiency) {
+            outFile.write(ability.getValue()+"\n");
+            if (ability.hasProficiency()) {
                 outFile.write(true+"\n");
-                if (ability.hasMastery)
+                if (ability.hasMastery())
                     outFile.write(true+"\n");
             }
             outFile.flush();

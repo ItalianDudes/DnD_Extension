@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
-public class SpellRegion {
+public class SpellRegion implements Serializable {
 
     //Attributes
     private final int spellRegionID;

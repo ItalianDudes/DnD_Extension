@@ -57,11 +57,14 @@ public class CharacterBackstory implements Serializable {
         bufferedWriter.close();
 
     }
-    public static CharacterBackstory readCharacterBackstory(File characterBackstory){
+    public static CharacterBackstory readCharacterBackstory(String characterBackstoryPath) {
+        return readCharacterBackstory(new File(characterBackstoryPath));
+    }
+    public static CharacterBackstory readCharacterBackstory(File characterBackstoryFile){
 
         Scanner inFile;
         try {
-            inFile = new Scanner(characterBackstory);
+            inFile = new Scanner(characterBackstoryFile);
         }catch (FileNotFoundException e){
             Logger.log(e);
             return new CharacterBackstory();

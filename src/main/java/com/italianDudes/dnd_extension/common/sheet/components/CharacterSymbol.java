@@ -1,7 +1,7 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
+import com.italianDudes.gvedk.common.FileHandler;
 import com.italianDudes.gvedk.common.FormattedImage;
-import com.italianDudes.gvedk.common.StringHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -21,7 +21,7 @@ public class CharacterSymbol implements Serializable {
         this(symbolName, new File(symbolImagePath));
     }
     public CharacterSymbol(String symbolName, File symbolImagePointer) throws IOException {
-        this(symbolName, new FormattedImage(ImageIO.read(symbolImagePointer), StringHandler.getFileExtension(symbolImagePointer)));
+        this(symbolName, new FormattedImage(ImageIO.read(symbolImagePointer), FileHandler.getFileExtension(symbolImagePointer)));
     }
     public CharacterSymbol(String symbolName, BufferedImage symbolImage, String symbolImageExtension){
         this(symbolName, new FormattedImage(symbolImage, symbolImageExtension));

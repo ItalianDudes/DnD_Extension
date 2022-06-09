@@ -1,9 +1,6 @@
 package com.italianDudes.dnd_extension.common.sheet.components;
 
-import com.italianDudes.gvedk.common.FormattedImage;
-import com.italianDudes.gvedk.common.ImageHandler;
-import com.italianDudes.gvedk.common.Logger;
-import com.italianDudes.gvedk.common.StringHandler;
+import com.italianDudes.gvedk.common.*;
 
 import javax.imageio.ImageIO;
 import java.io.*;
@@ -31,7 +28,10 @@ public class AlliesAndOrganization implements Serializable {
             this.organizations = new ArrayList<>();
         else
             this.organizations = organizations;
-        this.characterSymbol = characterSymbol;
+        if(characterSymbol==null)
+            this.characterSymbol = new CharacterSymbol();
+        else
+            this.characterSymbol = characterSymbol;
     }
     public AlliesAndOrganization(){
         this(null,null,null);
@@ -117,7 +117,7 @@ public class AlliesAndOrganization implements Serializable {
         FormattedImage symbolImage = null;
 
         try {
-            symbolImage = new FormattedImage(ImageIO.read(symbolImageFile), StringHandler.getFileExtension(symbolImageFile));
+            symbolImage = new FormattedImage(ImageIO.read(symbolImageFile), FileHandler.getFileExtension(symbolImageFile));
         }catch (IOException e){
             Logger.log(e);
         }
@@ -146,7 +146,7 @@ public class AlliesAndOrganization implements Serializable {
         outFile.close();
 
         outFile = new BufferedWriter(new FileWriter(destinationSymbolNameFile));
-        outFile.write(alliesAndOrganization.characterSymbol.getSymbolName());
+        outFile.write(alliesAndOrganization.characterSymbol.getSymbolName()+"\n");
         outFile.flush();
         outFile.close();
 
