@@ -23,8 +23,9 @@ public class SheetHeader implements Serializable {
     //Constructors
     public SheetHeader(String sheetID, String characterName, String className, int level, String race, String background,
                        String alignment, String playerName, int exp){
-        if(sheetID==null)
+        if(sheetID==null) {
             this.sheetID = String.valueOf(new Random().nextInt(DnD_Extension.Defs.SHEET_ID_MAX - DnD_Extension.Defs.SHEET_ID_MIN) + DnD_Extension.Defs.SHEET_ID_MIN);
+        }
         if(characterName==null)
             this.characterName = "";
         else
@@ -63,6 +64,9 @@ public class SheetHeader implements Serializable {
     }
     public void setSheetID(String sheetID) {
         this.sheetID = sheetID;
+    }
+    public void randomizeSheetID(){
+        this.sheetID = String.valueOf(new Random().nextInt(DnD_Extension.Defs.SHEET_ID_MAX - DnD_Extension.Defs.SHEET_ID_MIN) + DnD_Extension.Defs.SHEET_ID_MIN);
     }
     public String getCharacterName() {
         return characterName;
