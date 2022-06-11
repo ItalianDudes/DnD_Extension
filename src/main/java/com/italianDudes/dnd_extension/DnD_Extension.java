@@ -1,16 +1,22 @@
 package com.italianDudes.dnd_extension;
 
+import com.italianDudes.gvedk.common.Extension;
 import com.italianDudes.gvedk.common.State;
+import com.italianDudes.gvedk.common.exceptions.IO.InsufficientPrivilegesException;
 
 import java.io.File;
 
-public class DnD_Extension {
+public class DnD_Extension extends Extension {
 
-    public static State launch(File operativeDir){
+    //Constructors
+    public DnD_Extension(File extensionDirectory) throws InsufficientPrivilegesException {
+        super(extensionDirectory);
+    }
 
-        System.out.println("Hello World!");
+    //Methods
+    @Override
+    public State start() throws Exception {
         return new State(0);
-
     }
 
     //Constants Class
