@@ -4,6 +4,7 @@ import com.italianDudes.gvedk.common.Extension;
 import com.italianDudes.gvedk.common.State;
 import com.italianDudes.gvedk.common.exceptions.IO.InsufficientPrivilegesException;
 
+import javax.swing.*;
 import java.io.File;
 
 public class DnD_Extension extends Extension {
@@ -15,13 +16,26 @@ public class DnD_Extension extends Extension {
 
     //Methods
     @Override
-    public State start() throws Exception {
+    public State start() {
+
+        JFrame extFrame = new JFrame(Defs.EXTENSION_NAME);
+            extFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            extFrame.setLocationRelativeTo(null);
+            JPanel panel = new JPanel();
+                JLabel label = new JLabel(super.getExtensionDirectory().getAbsolutePath());
+                panel.add(label);
+            extFrame.add(panel);
+            extFrame.setVisible(true);
+
         return new State(0);
     }
 
     //Constants Class
     @SuppressWarnings("unused")
     public static final class Defs {
+
+        //Miscellaneous
+        public static final String EXTENSION_NAME = "D&D";
 
         //Directories
         public static final String USERS_DIR = "users/";
