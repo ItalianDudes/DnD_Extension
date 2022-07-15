@@ -1,6 +1,8 @@
 package com.italianDudes.dnd_extension;
 
+import com.italianDudes.dnd_extension.server.Server;
 import com.italianDudes.gvedk.common.Extension;
+import com.italianDudes.gvedk.common.Logger;
 import com.italianDudes.gvedk.common.State;
 import com.italianDudes.gvedk.common.exceptions.IO.InsufficientPrivilegesException;
 
@@ -17,6 +19,8 @@ public class DnD_Extension extends Extension {
     //Methods
     @Override
     public State start() {
+
+        Logger.log(Server.runServer(null).getMessage());
 
         JFrame extFrame = new JFrame(Defs.EXTENSION_NAME);
             extFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

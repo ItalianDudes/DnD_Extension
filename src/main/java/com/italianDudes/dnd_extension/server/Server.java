@@ -17,9 +17,7 @@ public final class Server {
     }
     public static State runServer(String[] args){
 
-        Logger.log("Paolo");
-
-        System.out.println("Hello World, I'm a server!");
+        Logger.log("Hello World, I'm a server!");
         return new State(0);
 
     }
